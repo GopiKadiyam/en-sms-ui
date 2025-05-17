@@ -1,0 +1,75 @@
+<div class="row show-grid">
+  <div class="col-12 col-sm-12">
+    <form class="form-horizontal" (keyup.enter)="createSender()" (ngSubmit)="createSender()" [formGroup]="createSenderForm">
+      <div class="form-group row">
+        <label for="forSenderId" class="label col-sm-3 form-control-label">Sender ID</label>
+        <div class="col-sm-9">
+          <input type="text" formControlName="senderId" fullWidth placeholder="Sender ID" />
+          <span *ngIf="!senderId?.valid && (senderId?.dirty || senderId?.touched)" style="color: red"
+            >senderId is mandatory and unique</span
+          >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="forDescription" class="label col-sm-3 form-control-labell">Description</label>
+        <div class="col-sm-9">
+          <textarea rows="5" nbInput formControlName="description" fullWidth shape="round" placeholder="Text Area"></textarea>
+          <span *ngIf="!description?.valid && (description?.dirty || description?.touched)" style="color: red"
+            >description is mandatory</span
+          >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="forCountry" class="label col-sm-3 form-control-labell">Country</label>
+        <div class="col-sm-9">
+          <select selected="1" formControlName="country" placeholder="Choose Country">
+            <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
+          </select>
+          <span *ngIf="!country?.valid && (country?.dirty || country?.touched)" style="color: red">country is mandatory</span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="forServiceType" class="label col-sm-3 form-control-labell">Service Type</label>
+        <div class="col-sm-9">
+          <select selected="1" formControlName="serviceType" placeholder="Choose Service Type">
+            <option *ngFor="let servType of serviceTypes" [value]="servType">{{ servType }}</option>
+          </select>
+          <span *ngIf="!serviceType?.valid && (serviceType?.dirty || serviceType?.touched)" style="color: red"
+            >serviceType is mandatory</span
+          >
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="forEntityId" class="label col-sm-3 form-control-labell">Entity ID</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput formControlName="entityId" fullWidth placeholder="Entity ID" />
+          <span *ngIf="!entityId?.valid && (entityId?.dirty || entityId?.touched)" style="color: red">entityId is mandatory</span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="forIsOpen" class="label col-sm-3 form-control-labell">Is Open</label>
+        <div class="col-sm-9">
+          <input type="text" nbInput formControlName="openFlag" fullWidth placeholder="Is Open" />
+          <span *ngIf="!openFlag?.valid && (openFlag?.dirty || openFlag?.touched)" style="color: red">isOpen is mandatory</span>
+        </div>
+      </div>
+      <div class="form-group row">
+        <label for="forStatus" class="label col-sm-3 form-control-labell">Status</label>
+        <div class="col-sm-9">
+          <label class="switch">
+            <input type="checkbox" formControlName="statusFlag" placeholder="Status" checked />
+            <span class="slider round"></span>
+          </label>
+          <!-- <nb-toggle formControlName="statusFlag" placeholder="Status"></nb-toggle> -->
+          <span *ngIf="!statusFlag?.valid && (statusFlag?.dirty || statusFlag?.touched)" style="color: red">status is mandatory</span>
+        </div>
+      </div>
+
+      <div class="form-group row">
+        <div class="offset-sm-3 col-sm-9">
+          <button type="submit" nbButton [disabled]="createSenderForm.invalid" status="primary">Create Sender</button>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>

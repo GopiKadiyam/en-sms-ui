@@ -6,15 +6,19 @@ import { SenderListComponent } from './sender-list/sender-list.component';
 import { SenderComponent } from './sender.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../../shared/shared.module';
+import { AgGridModule } from 'ag-grid-angular';
+import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 
-
-
+ModuleRegistry.registerModules([AllCommunityModule]);
 @NgModule({
   declarations: [CreateSenderComponent, SenderListComponent, SenderComponent],
   imports: [
     CommonModule,
     SenderRoutingModule,
     ReactiveFormsModule,
+    SharedModule,
+    AgGridModule,
     HttpClientModule
   ]
 })

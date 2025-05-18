@@ -18,7 +18,10 @@
 
   .page-header-title {
     display: inline-block;
-
+    margin-top: clamp(0.75rem, 2vw, 1.5rem); /* Between 12px and 24px */
+    margin-bottom: clamp(0.25rem, 1vw, 0.5rem); /* Between 4px and 8px */
+    margin-left: 0;
+    margin-right: 0;
     h2 {
       margin: 0px;
     }

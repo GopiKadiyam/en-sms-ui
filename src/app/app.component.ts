@@ -1,13 +1,12 @@
 // angular import
 import { Component, inject } from '@angular/core';
 import { Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError, RouterModule } from '@angular/router';
-import { SharedModule } from './demo/shared/shared.module';
 
 @Component({
   selector: 'app-root',
-  imports: [SharedModule, RouterModule],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  standalone:false
 })
 export class AppComponent {
   private router = inject(Router);

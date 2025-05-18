@@ -20,7 +20,7 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatTooltipModule } from '@angular/material/tooltip';
-
+import {MatSelectModule} from '@angular/material/select';
 // project
 import { CardComponent } from 'src/app/@theme/components/card/card.component';
 
@@ -43,11 +43,12 @@ const MaterialModules = [
   MatProgressBarModule,
   MatProgressSpinnerModule,
   MatTabsModule,
-  MatTooltipModule
+  MatTooltipModule,
+  MatSelectModule
 ];
 
 @NgModule({
-  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgScrollbarModule, CardComponent, MaterialModules],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, NgScrollbarModule, CardComponent,MaterialModules],
   exports: [FormsModule, ReactiveFormsModule, NgScrollbarModule, CardComponent, MaterialModules]
 })
 export class SharedModule {}

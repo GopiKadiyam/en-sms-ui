@@ -1,7 +1,7 @@
 import { environment } from "../environments/environment";
 
 export const BACKEND_HOST ={
-    sendSmsServiceUrl: environment.sendSmsServiceUrl,
+    sendSmsServiceHostname: environment.sendSmsServiceHostname,
 }
 
 
@@ -11,10 +11,13 @@ const authURLs={
     checkAuth:"/api/auth/check-auth"
 }
 const senderURLs={
-    createSender:"/api/sender/create",
-    senderList:"/api/sender/all",
+    createSender:"/sender",
+    getSenderList:"/sender/all",
     getSenderById:"/api/sender/{senderId}",
     getAllSenderIds:"/api/sender/id/all"
+}
+const commonUrls={
+    getServiceTypes: '/service-types'
 }
 const templateURLs={
     createTemplate:"/api/template/create",
@@ -31,5 +34,6 @@ export const API_URL = {
     authURLs,
     senderURLs,
     templateURLs,
-    campaignURLs
+    campaignURLs,
+    commonUrls
 }

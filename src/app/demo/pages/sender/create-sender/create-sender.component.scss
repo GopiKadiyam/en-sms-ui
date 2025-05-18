@@ -1,59 +1,86 @@
-.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
+.form-card {
+  max-width: 80%;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
-.switch input { 
-  opacity: 0;
-  width: 0;
-  height: 0;
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
 }
 
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
+.form-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+
+  label {
+    flex: 0 0 210px;
+    font-weight: bold;
+    color: #333;
+  }
+
+  mat-form-field,
+  mat-slide-toggle {
+    flex: 1;
+    width: 100%;
+  }
+
+  mat-error {
+    margin-left: 180px;
+    color: red;
+    font-size: 0.8rem;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: flex-start;
+
+    label {
+      flex: none;
+      margin-bottom: 0.25rem;
+    }
+
+    mat-error {
+      margin-left: 0;
+    }
+  }
 }
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  @media (max-width: 768px) {
+    justify-content: center;
+  }
+
+  button {
+    min-width: 160px;
+  }
 }
 
-input:checked + .slider {
-  background-color: #2196F3;
+.error-message {
+  color: red;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
+.success-card {
+  margin: 20px;
+  padding: 15px;
+  border-left: 4px solid green;
 }
 
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
+.mat-mdc-card-title, .mat-mdc-card-subtitle {
+    display: block;
+    margin: 2.5%;
 }
 
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
+.mat-mdc-card-content {
+    display: block;
+    padding: 10px 16px;
 }

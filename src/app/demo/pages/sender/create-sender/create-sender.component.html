@@ -1,75 +1,101 @@
-<div class="row show-grid">
-  <div class="col-12 col-sm-12">
-    <form class="form-horizontal" (keyup.enter)="createSender()" (ngSubmit)="createSender()" [formGroup]="createSenderForm">
-      <div class="form-group row">
-        <label for="forSenderId" class="label col-sm-3 form-control-label">Sender ID</label>
-        <div class="col-sm-9">
-          <input type="text" formControlName="senderId" fullWidth placeholder="Sender ID" />
-          <span *ngIf="!senderId?.valid && (senderId?.dirty || senderId?.touched)" style="color: red"
-            >senderId is mandatory and unique</span
-          >
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="forDescription" class="label col-sm-3 form-control-labell">Description</label>
-        <div class="col-sm-9">
-          <textarea rows="5" nbInput formControlName="description" fullWidth shape="round" placeholder="Text Area"></textarea>
-          <span *ngIf="!description?.valid && (description?.dirty || description?.touched)" style="color: red"
-            >description is mandatory</span
-          >
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="forCountry" class="label col-sm-3 form-control-labell">Country</label>
-        <div class="col-sm-9">
-          <select selected="1" formControlName="country" placeholder="Choose Country">
-            <option *ngFor="let country of countries" [value]="country">{{ country }}</option>
-          </select>
-          <span *ngIf="!country?.valid && (country?.dirty || country?.touched)" style="color: red">country is mandatory</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="forServiceType" class="label col-sm-3 form-control-labell">Service Type</label>
-        <div class="col-sm-9">
-          <select selected="1" formControlName="serviceType" placeholder="Choose Service Type">
-            <option *ngFor="let servType of serviceTypes" [value]="servType">{{ servType }}</option>
-          </select>
-          <span *ngIf="!serviceType?.valid && (serviceType?.dirty || serviceType?.touched)" style="color: red"
-            >serviceType is mandatory</span
-          >
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="forEntityId" class="label col-sm-3 form-control-labell">Entity ID</label>
-        <div class="col-sm-9">
-          <input type="text" nbInput formControlName="entityId" fullWidth placeholder="Entity ID" />
-          <span *ngIf="!entityId?.valid && (entityId?.dirty || entityId?.touched)" style="color: red">entityId is mandatory</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="forIsOpen" class="label col-sm-3 form-control-labell">Is Open</label>
-        <div class="col-sm-9">
-          <input type="text" nbInput formControlName="openFlag" fullWidth placeholder="Is Open" />
-          <span *ngIf="!openFlag?.valid && (openFlag?.dirty || openFlag?.touched)" style="color: red">isOpen is mandatory</span>
-        </div>
-      </div>
-      <div class="form-group row">
-        <label for="forStatus" class="label col-sm-3 form-control-labell">Status</label>
-        <div class="col-sm-9">
-          <label class="switch">
-            <input type="checkbox" formControlName="statusFlag" placeholder="Status" checked />
-            <span class="slider round"></span>
-          </label>
-          <!-- <nb-toggle formControlName="statusFlag" placeholder="Status"></nb-toggle> -->
-          <span *ngIf="!statusFlag?.valid && (statusFlag?.dirty || statusFlag?.touched)" style="color: red">status is mandatory</span>
-        </div>
+<mat-card class="form-card" appearance="outlined" *ngIf="successData===null">  
+  <div id="sender-form">
+    <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="createSender()" (keyup.enter)="createSender()">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
       </div>
 
-      <div class="form-group row">
-        <div class="offset-sm-3 col-sm-9">
-          <button type="submit" nbButton [disabled]="createSenderForm.invalid" status="primary">Create Sender</button>
-        </div>
+      <!-- Sender ID -->
+      <div class="form-row">
+        <label for="senderId">Sender ID</label>
+        <mat-form-field appearance="outline">
+          <input matInput id="senderId" formControlName="senderId" placeholder="Enter Sender ID" />
+        </mat-form-field>
+        <mat-error *ngIf="senderId?.invalid && (senderId?.dirty || senderId?.touched)"> Sender ID is mandatory and unique </mat-error>
+      </div>
+
+      <!-- Description -->
+      <div class="form-row">
+        <label for="description">Description</label>
+        <mat-form-field appearance="outline">
+          <textarea matInput id="description" formControlName="description" placeholder="Enter Description" rows="3"></textarea>
+        </mat-form-field>
+        <mat-error *ngIf="description?.invalid && (description?.dirty || description?.touched)"> Description is mandatory </mat-error>
+      </div>
+
+      <!-- Country -->
+      <div class="form-row">
+        <label for="country">Country</label>
+        <mat-form-field appearance="outline">
+          <mat-label>Choose Country</mat-label>
+          <mat-select id="country" formControlName="country">
+            @for (country of countries; track country) {
+              <mat-option [value]="country">{{ country }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="country?.invalid && (country?.dirty || country?.touched)"> Country is mandatory </mat-error>
+      </div>
+
+      <!-- Service Type -->
+      <div class="form-row">
+        <label for="serviceType">Service Type</label>
+        <mat-form-field appearance="outline">
+          <mat-label>Choose Service Type</mat-label>
+          <mat-select id="serviceType" formControlName="serviceType" placeholder="ServiceTy">
+            @for (servType of serviceTypes; track servType) {
+              <mat-option [value]="servType?.name">{{ servType?.name }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="serviceType?.invalid && (serviceType?.dirty || serviceType?.touched)"> Service Type is mandatory </mat-error>
+      </div>
+
+      <!-- Entity ID -->
+      <div class="form-row">
+        <label for="entityId">Entity ID</label>
+        <mat-form-field appearance="outline">
+          <input matInput id="entityId" formControlName="entityId" placeholder="Enter Entity ID" />
+        </mat-form-field>
+        <mat-error *ngIf="entityId?.invalid && (entityId?.dirty || entityId?.touched)"> Entity ID is mandatory </mat-error>
+      </div>
+
+      <!-- Is Open -->
+      <div class="form-row">
+        <label for="openFlag">Is Open</label>
+        <mat-form-field appearance="outline">
+          <mat-label>Choose Open Flag</mat-label>
+          <mat-select id="openFlag" formControlName="openFlag">
+            @for (open of openFlags; track open) {
+              <mat-option [value]="open">{{ open | uppercase }}</mat-option>
+            }
+          </mat-select>
+        </mat-form-field>
+        <mat-error *ngIf="openFlag?.invalid && (openFlag?.dirty || openFlag?.touched)"> Is Open is mandatory </mat-error>
+      </div>
+
+      <!-- Status -->
+      <div class="form-row">
+        <label for="statusFlag">Status</label>
+        <mat-slide-toggle id="statusFlag" formControlName="statusFlag">Active</mat-slide-toggle>
+      </div>
+
+      <!-- Submit -->
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="createSenderForm.invalid"> Create Sender </button>
       </div>
     </form>
   </div>
-</div>
+</mat-card>
+
+
+<!-- Success Card -->
+<mat-card *ngIf="successData" class="success-card">
+  <mat-card-title>Sender Created Successfully</mat-card-title>
+  <mat-card-content>
+    <p><strong>Sender ID:</strong> {{ successData?.senderId }}</p>
+    <p><strong>Description:</strong> {{ successData?.description }}</p>
+    <p><strong>Service Type:</strong> {{ successData?.serviceType }}</p>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,93 @@
+<h2 mat-dialog-title>Edit Sender</h2>
+<mat-dialog-content class="mat-typography">
+  <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="createSender()" *ngIf="!message">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+    <!-- Sender ID -->
+    <div class="form-row">
+      <label for="senderId">Sender ID</label>
+      <mat-form-field appearance="outline">
+        <input matInput id="senderId" formControlName="senderId" placeholder="Enter Sender ID" />
+      </mat-form-field>
+      <mat-error *ngIf="senderId?.invalid && (senderId?.dirty || senderId?.touched)"> Sender ID is mandatory and unique </mat-error>
+    </div>
+
+    <!-- Description -->
+    <div class="form-row">
+      <label for="description">Description</label>
+      <mat-form-field appearance="outline">
+        <textarea matInput id="description" formControlName="description" placeholder="Enter Description" rows="3"></textarea>
+      </mat-form-field>
+      <mat-error *ngIf="description?.invalid && (description?.dirty || description?.touched)"> Description is mandatory </mat-error>
+    </div>
+
+    <!-- Country -->
+    <div class="form-row">
+      <label for="country">Country</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Choose Country</mat-label>
+        <mat-select id="country" formControlName="country">
+          @for (country of countries; track country) {
+            <mat-option [value]="country">{{ country }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="country?.invalid && (country?.dirty || country?.touched)"> Country is mandatory </mat-error>
+    </div>
+
+    <!-- Service Type -->
+    <div class="form-row">
+      <label for="serviceType">Service Type</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Choose Service Type</mat-label>
+        <mat-select id="serviceType" formControlName="serviceType" placeholder="ServiceTy">
+          @for (servType of serviceTypes; track servType) {
+            <mat-option [value]="servType?.name">{{ servType?.name }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="serviceType?.invalid && (serviceType?.dirty || serviceType?.touched)"> Service Type is mandatory </mat-error>
+    </div>
+
+    <!-- Entity ID -->
+    <div class="form-row">
+      <label for="entityId">Entity ID</label>
+      <mat-form-field appearance="outline">
+        <input matInput id="entityId" formControlName="entityId" placeholder="Enter Entity ID" />
+      </mat-form-field>
+      <mat-error *ngIf="entityId?.invalid && (entityId?.dirty || entityId?.touched)"> Entity ID is mandatory </mat-error>
+    </div>
+
+    <!-- Is Open -->
+    <div class="form-row">
+      <label for="openFlag">Is Open</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Choose Open Flag</mat-label>
+        <mat-select id="openFlag" formControlName="openFlag">
+          @for (open of openFlags; track open) {
+            <mat-option [value]="open">{{ open | uppercase }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="openFlag?.invalid && (openFlag?.dirty || openFlag?.touched)"> Is Open is mandatory </mat-error>
+    </div>
+
+    <!-- Status -->
+    <div class="form-row">
+      <label for="statusFlag">Status</label>
+      <mat-slide-toggle id="statusFlag" formControlName="statusFlag">Active</mat-slide-toggle>
+    </div>
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="createSenderForm.invalid"> Update Sender </button>
+    </div>
+  </form>
+  <div *ngIf="message">
+    {{ message }}
+  </div>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <!-- <button mat-raised-button color="primary" type="submit" (click)="createSender()" [disabled]="createSenderForm.invalid" style="margin-left: 0.5rem;" [mat-dialog-close]="true" cdkFocusInitial> Create Sender </button> -->
+  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Sender List</button>
+</mat-dialog-actions>

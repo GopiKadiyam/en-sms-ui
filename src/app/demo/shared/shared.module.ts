@@ -26,6 +26,7 @@ import { CardComponent } from 'src/app/@theme/components/card/card.component';
 
 // third party import
 import { NgScrollbarModule } from 'ngx-scrollbar';
+import { MatDialogModule } from '@angular/material/dialog';
 
 const MaterialModules = [
   MatToolbarModule,
@@ -44,7 +45,8 @@ const MaterialModules = [
   MatProgressSpinnerModule,
   MatTabsModule,
   MatTooltipModule,
-  MatSelectModule
+  MatSelectModule,
+  MatDialogModule
 ];
 
 @NgModule({

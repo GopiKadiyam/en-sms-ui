@@ -1,54 +1,52 @@
-<mat-card class="form-card" appearance="outlined">
+<mat-card class="form-card">
   <div class="header-bar">
-    <div class="font-row">
+    <div class="sender-info">
       <p>
-        Sender ID is your identity from which the message is sent. Accoriding tp TRAI, all application to people SMSs should be sent deom a
-        Sender-ID rather than a number. SMS Sender ID is the name with which your outgoing transactional SMS will be sent.
+        A Sender ID represents the name or number shown to recipients when they receive your SMS. As per TRAI regulations, messages from
+        applications to individuals (A2P SMS) must be sent using a Sender ID rather than a mobile number.
       </p>
-
-      <p>Sender ID format is as below</p>
-      <ul class="mb-5">
-        <li> <strong>Promotional SMS</strong> is numeric and fixed from the operator. For ex 777777 </li>
-        <li> <strong>Transactional SMS</strong> is 6 character, alphabetic in india, ex NOTIFY,TXTSMS </li>
+      <p> This ID is used especially for transactional messages and defines your brand or service identity to your users. </p>
+      <p><strong>Sender ID formats:</strong></p>
+      <ul>
+        <li> <strong>Promotional SMS:</strong> Uses a 6-digit numeric Sender ID provided by the operator. Example: <code>777777</code> </li>
+        <li>
+          <strong>Transactional SMS:</strong> Requires an alphabetic ID, typically 5 to 6 characters long. Example: <code>NOTIFY</code>
+        </li>
       </ul>
     </div>
   </div>
-  <div class="header-bar">
-    <mat-form-field class="sender-search" appearance="outline">
+
+  <div class="header-bar search-bar">
+    <mat-form-field appearance="outline" class="sender-search">
       <mat-label>Search table</mat-label>
       <input matInput type="text" [(ngModel)]="senderGlobalSearch" (ngModelChange)="onGlobalSearchChange()" placeholder="Search..." />
-      @if (senderGlobalSearch) {
-        <button matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
-          <mat-icon>close</mat-icon>
-        </button>
-      }
+      <button *ngIf="senderGlobalSearch" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
     </mat-form-field>
 
     <div class="theme-switcher-wrapper">
-      <div class="theme-switcher">
-        <select (change)="changeTheme($event)">
-          <option *ngFor="let theme of themes" [value]="theme.value">
-            {{ theme.name }}
-          </option>
-        </select>
-      </div>
-      <button mat-raised-button color="primary" type="submit" style="margin-left: 0.5rem" [routerLink]="['./create']">
-        Create Sender
-      </button>
+      <select (change)="changeTheme($event)">
+        <option *ngFor="let theme of themes" [value]="theme.value">{{ theme.name }}</option>
+      </select>
+      <button mat-raised-button color="primary" [routerLink]="['./create']">Create Sender</button>
     </div>
   </div>
+
   <div [ngClass]="currentTheme" class="ag-grid-container">
     <ag-grid-angular
       #agGrid
+      class="ag-theme-custom"
       style="width: 100%; height: 500px"
-      class="table-outline"
       [rowData]="rowData"
       [columnDefs]="columnDefs"
       [defaultColDef]="defaultColDef"
-      rowSelection="multiple"
+      rowSelection="single"
       pagination="true"
-      [paginationPageSize]="5"
+      [paginationPageSize]="20"
       (gridReady)="onGridReady($event)"
-    ></ag-grid-angular>
+      [context]="context"
+    >
+    </ag-grid-angular>
   </div>
 </mat-card>

@@ -1,10 +1,14 @@
 
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
+import { CellClickedEvent, ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { API_URL } from 'src/app/app.constant';
 import { Subject } from 'rxjs/internal/Subject';
 import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { MatDialog } from '@angular/material/dialog';
+import { ActionRendererComponent } from '../action-renderer/action-renderer.component';
+import { EditSenderComponent } from '../edit-sender/edit-sender.component';
+import { DeleteSenderComponent } from '../delete-sender/delete-sender.component';
 
 @Component({
   selector: 'app-sender-list',
@@ -21,15 +25,23 @@ export class SenderListComponent implements OnInit {
   currentTheme = 'ag-theme-alpine';
 
   columnDefs: ColDef[] = [
-    { headerName: 'Country', field: 'country', sortable: true, filter: true },
+    {
+      headerName: 'Actions',
+      field: 'actions',
+      cellRenderer: ActionRendererComponent,
+      width: 120, // or higher if needed
+      autoHeight: true,
+      suppressSizeToFit: true
+    },
+    { headerName: 'Country', field: 'country', sortable: true, filter: true, autoHeight: true },
     { headerName: 'Sender ID', field: 'senderId', sortable: true, filter: true },
     { headerName: 'Description', field: 'description', sortable: true, filter: true },
-    { headerName: 'Service', field: 'service', sortable: true, filter: true },
+    { headerName: 'Service', field: 'serviceType', sortable: true, filter: true },
     { headerName: 'Created At', field: 'createdAt', sortable: true, filter: true },
-    { headerName: 'Is Open', field: 'isOpen', sortable: true, filter: true },
-    { headerName: 'Status', field: 'status', sortable: true, filter: true },
+    { headerName: 'Is Open', field: 'openFlag', sortable: true, filter: true },
+    { headerName: 'Status', field: 'statusFlag', sortable: true, filter: true },
   ];
-
+  context = { componentParent: this };
   defaultColDef = {
     sortable: true,
     filter: true,
@@ -46,13 +58,16 @@ export class SenderListComponent implements OnInit {
 
   private searchSubject = new Subject<string>();
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.searchSubject.pipe(debounceTime(200)).subscribe((search) => {
       this.applyGlobalSearch(search);
     });
+    this.getAllSendersApi();
+  }
 
+  getAllSendersApi() {
     this.http.get<any[]>(API_URL.senderURLs.getSenderList).subscribe((response) => {
       this.originalData = response;
       this.rowData = response;
@@ -81,6 +96,25 @@ export class SenderListComponent implements OnInit {
       })
     );
   }
+
+  onEditClicked(rowData: any) {
+    const dialogRef = this.dialog.open(EditSenderComponent, { data: rowData });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Edit result: ${result}`);
+      if (result === true)
+        this.getAllSendersApi();
+    });
+  }
+
+  onDeleteClicked(rowData: any) {
+    const dialogRef = this.dialog.open(DeleteSenderComponent, { data: rowData });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`Delet result: ${result}`);
+      if (result === true)
+        this.getAllSendersApi();
+    });
+  }
+
   clearSearch(): void {
     this.senderGlobalSearch = '';
     this.rowData = [...this.originalData];

@@ -1,4 +1,4 @@
-<mat-card class="form-card" appearance="outlined" *ngIf="successData===null">  
+<mat-card class="form-card" appearance="outlined" *ngIf="successData === null">
   <div id="sender-form">
     <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="createSender()" (keyup.enter)="createSender()">
       <!-- Error Message -->
@@ -88,7 +88,6 @@
     </form>
   </div>
 </mat-card>
-
 
 <!-- Success Card -->
 <mat-card *ngIf="successData" class="success-card">

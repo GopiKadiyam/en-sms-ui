@@ -13,6 +13,7 @@ const authURLs={
 const senderURLs={
     createSender:"/sender",
     getSenderList:"/sender/all",
+    deleteSender:"/sender/{senderId}",
     getSenderById:"/api/sender/{senderId}",
     getAllSenderIds:"/api/sender/id/all"
 }

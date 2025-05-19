@@ -1,8 +1,16 @@
 .form-card {
   max-width: 80%;
-  margin: 2rem auto;
+  margin: 0.8rem auto;
+  // padding: 1.5rem;
+  // box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  background-color: white;
+  border-radius: 0.8rem !important;
+  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06) !important;
   padding: 1.5rem;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 0.3s ease;
+  &:hover {
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.12) !important;
+  }
 }
 
 .form-container {
@@ -75,12 +83,13 @@
   border-left: 4px solid green;
 }
 
-.mat-mdc-card-title, .mat-mdc-card-subtitle {
-    display: block;
-    margin: 2.5%;
+.mat-mdc-card-title,
+.mat-mdc-card-subtitle {
+  display: block;
+  margin: 2.5%;
 }
 
 .mat-mdc-card-content {
-    display: block;
-    padding: 10px 16px;
+  display: block;
+  padding: 10px 16px;
 }

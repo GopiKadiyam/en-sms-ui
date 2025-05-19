@@ -5,7 +5,7 @@
 @import 'scss/fonts/tabler-icons.min.css';
 
 // load fonts
-// @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@300;400;500&display=swap');
 
 // theme setup
 @import './app/@theme/styles/theme-palette-colors.scss';
@@ -19,6 +19,10 @@
 .blue-theme {
   @include generate-theme-classes($blue-theme); // generate non material classes based on theme
 }
+// .dark-theme {
+//   @include mat.all-component-themes($dark-theme);
+//   @include generate-theme-classes($dark-theme);
+// }
 
 // common
 @import './scss/generic';
@@ -37,3 +41,11 @@
 @import 'ag-grid-community/styles/ag-theme-balham.css';
 @import 'ag-grid-community/styles/ag-theme-material.css';
 
+.ag-theme-material {
+  --ag-foreground-color: #1f2937;
+  --ag-background-color: #f9fafb;
+  --ag-header-background-color: #4f46e5;
+  --ag-header-foreground-color: #fff;
+  --ag-row-hover-color: #e0e7ff;
+  font-family: 'Inter', sans-serif;
+}

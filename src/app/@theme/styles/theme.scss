@@ -101,3 +101,6 @@ h6 {
   font-weight: 400 !important;
 }
 /// End
+
+
+@include mat.all-component-typographies(theme-typography("'Inter', sans-serif"));

@@ -7,11 +7,12 @@ import { SenderComponent } from './sender.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { SharedModule } from '../../shared/shared.module';
-import { AgGridModule } from 'ag-grid-angular';
+
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import { ActionRendererComponent } from './action-renderer/action-renderer.component';
 import { EditSenderComponent } from './edit-sender/edit-sender.component';
 import { DeleteSenderComponent } from './delete-sender/delete-sender.component';
+import { AgGridModule } from 'ag-grid-angular';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 @NgModule({

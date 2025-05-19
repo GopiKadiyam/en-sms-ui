@@ -26,10 +26,24 @@
     </mat-form-field>
 
     <div class="theme-switcher-wrapper">
-      <select (change)="changeTheme($event)">
-        <option *ngFor="let theme of themes" [value]="theme.value">{{ theme.name }}</option>
-      </select>
-      <button mat-raised-button color="primary" [routerLink]="['./create']">Create Sender</button>
+      <div class="theme-select">
+        <mat-form-field appearance="fill">
+          <mat-label>Theme</mat-label>
+          <mat-select (selectionChange)="changeTheme($event)">
+            <mat-option *ngFor="let theme of themes" [value]="theme.value">
+              <mat-icon class="option-icon">palette</mat-icon>
+              {{ theme.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="create-btn">
+        <button mat-raised-button color="primary" [routerLink]="['./create']">
+          <mat-icon class="material-icon-left">add</mat-icon>
+          Create Sender
+        </button>
+      </div>
     </div>
   </div>
 

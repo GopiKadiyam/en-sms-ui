@@ -39,8 +39,21 @@ export class SenderListComponent implements OnInit {
     { headerName: 'Service', field: 'serviceType', sortable: true, filter: true },
     { headerName: 'Created At', field: 'createdAt', sortable: true, filter: true },
     { headerName: 'Is Open', field: 'openFlag', sortable: true, filter: true },
-    { headerName: 'Status', field: 'statusFlag', sortable: true, filter: true },
+    {
+      headerName: 'Status',
+      field: 'statusFlag',
+      cellRenderer: (params: any) => {
+        const isActive = !!params.value;
+        return `
+      <span class="status-chip ${isActive ? 'active' : 'inactive'} !important">
+        ${isActive ? 'Active' : 'Inactive'}
+      </span>
+    `;
+      }
+    },
   ];
+
+  //[style]="padding: 4px 10px;border-radius: 12px;font-size: 12px;font-weight: 500;color: white;display: inline-block;text-transform: capitalize;"
   context = { componentParent: this };
   defaultColDef = {
     sortable: true,
@@ -120,7 +133,9 @@ export class SenderListComponent implements OnInit {
     this.rowData = [...this.originalData];
   }
 
+
   changeTheme(event: any) {
-    this.currentTheme = event.target.value;
+    this.currentTheme = event.value || event.target.value;
   }
 }
+

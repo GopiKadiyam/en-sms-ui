@@ -16,16 +16,10 @@ import { ICellRendererParams } from 'ag-grid-community';
   </button>
 </div>
   `,
-  styles: [`
-    .action-buttons {
-      display: flex;
-      gap: 0.5rem;
-      justify-content: center;
-    }
-  `]
+  styleUrls: ['./action-renderer.component.scss'],
 })
 export class ActionRendererComponent implements ICellRendererAngularComp {
-  params: any;
+  params!: ICellRendererParams;
 
   agInit(params: ICellRendererParams): void {
     this.params = params;
@@ -42,4 +36,5 @@ export class ActionRendererComponent implements ICellRendererAngularComp {
   onDelete() {
     this.params.context.componentParent.onDeleteClicked(this.params.data);
   }
+
 }

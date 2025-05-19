@@ -1,16 +1,35 @@
-<h2 mat-dialog-title>Delete Sender</h2>
+<h2 class="dialog-title delete-header" mat-dialog-title> <mat-icon class="title-icon">delete</mat-icon> Delete Sender</h2>
+<!-- Dialog Content -->
 <mat-dialog-content class="mat-typography">
   <div *ngIf="!message">
-    <mat-dialog-content> Would you like to delete sender Id {{ rowData?.senderId }}? </mat-dialog-content>
-    <mat-dialog-actions>
-      <button mat-button mat-dialog-close>No</button>
-      <button mat-button (click)="deleteSender(rowData?.senderId)">Ok</button>
-    </mat-dialog-actions>
+    <p class="confirm-text">
+      Are you sure you want to delete sender ID <strong>{{ rowData?.senderId }}</strong
+      >?
+    </p>
+    <div class="action-buttons">
+      <button mat-stroked-button color="primary" mat-dialog-close>
+        <mat-icon class="material-icon-left">close</mat-icon>
+        Cancel
+      </button>
+      <button mat-flat-button color="warn" (click)="deleteSender(rowData?.senderId)">
+        <mat-icon class="material-icon-left">delete</mat-icon>
+        Delete
+      </button>
+    </div>
   </div>
-  <div *ngIf="message">{{ message }}</div>
+
+  <!-- Success Message -->
+  <div *ngIf="message" class="success-message"> <mat-icon>check_circle</mat-icon> {{ message }} </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <!-- <button mat-raised-button color="primary" type="submit" (click)="createSender()" [disabled]="createSenderForm.invalid" style="margin-left: 0.5rem;" [mat-dialog-close]="true" cdkFocusInitial> Create Sender </button> -->
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Sender List</button>
+
+<!-- Footer -->
+<mat-dialog-actions align="end" class="dialog-footer">
+  <button mat-button mat-dialog-close>
+    <mat-icon class="material-icon-left">cancel</mat-icon>
+    Close
+  </button>
+  <button mat-flat-button color="accent" [mat-dialog-close]="true">
+    <mat-icon class="material-icon-left">list</mat-icon>
+    Sender List
+  </button>
 </mat-dialog-actions>

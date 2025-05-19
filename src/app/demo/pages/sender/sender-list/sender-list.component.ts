@@ -111,7 +111,12 @@ export class SenderListComponent implements OnInit {
   }
 
   onEditClicked(rowData: any) {
-    const dialogRef = this.dialog.open(EditSenderComponent, { data: rowData });
+    const dialogRef = this.dialog.open(EditSenderComponent, {
+      data: rowData,
+      width: '50vw', // or '80vw' for responsive width
+      maxWidth: '90vw', // ensures dialog doesn't overflow
+      autoFocus: false // optional to prevent auto scroll to input
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Edit result: ${result}`);
       if (result === true)
@@ -120,7 +125,11 @@ export class SenderListComponent implements OnInit {
   }
 
   onDeleteClicked(rowData: any) {
-    const dialogRef = this.dialog.open(DeleteSenderComponent, { data: rowData });
+    const dialogRef = this.dialog.open(DeleteSenderComponent, {
+      data: rowData,
+      width: '50vw', // Or '50vw' for responsiveness
+      maxWidth: '90vw'
+    });
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Delet result: ${result}`);
       if (result === true)

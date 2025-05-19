@@ -1,25 +1,48 @@
-<h2 mat-dialog-title>Edit Sender</h2>
+<h2 class="dialog-title" mat-dialog-title><mat-icon class="title-icon">edit</mat-icon> Edit Sender</h2>
+
+<!-- Dialog Content -->
 <mat-dialog-content class="mat-typography">
   <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="createSender()" *ngIf="!message">
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>
-    <!-- Sender ID -->
-    <div class="form-row">
-      <label for="senderId">Sender ID</label>
-      <mat-form-field appearance="outline">
-        <input matInput id="senderId" formControlName="senderId" placeholder="Enter Sender ID" />
-      </mat-form-field>
-      <mat-error *ngIf="senderId?.invalid && (senderId?.dirty || senderId?.touched)"> Sender ID is mandatory and unique </mat-error>
-    </div>
 
-    <!-- Description -->
-    <div class="form-row">
-      <label for="description">Description</label>
+    <!-- Fields -->
+    <div
+      class="form-row"
+      *ngFor="
+        let field of [
+          { key: 'senderId', label: 'Sender ID', type: 'text', placeholder: 'Enter Sender ID' },
+          { key: 'description', label: 'Description', type: 'textarea', placeholder: 'Enter Description' },
+          { key: 'entityId', label: 'Entity ID', type: 'text', placeholder: 'Enter Entity ID' }
+        ]
+      "
+    >
+      <label [for]="field.key">{{ field.label }}</label>
       <mat-form-field appearance="outline">
-        <textarea matInput id="description" formControlName="description" placeholder="Enter Description" rows="3"></textarea>
+        <textarea
+          *ngIf="field.type === 'textarea'"
+          matInput
+          [id]="field.key"
+          [formControlName]="field.key"
+          [placeholder]="field.placeholder"
+          rows="3"
+        ></textarea>
+        <input
+          *ngIf="field.type !== 'textarea'"
+          matInput
+          [id]="field.key"
+          [formControlName]="field.key"
+          [placeholder]="field.placeholder"
+        />
       </mat-form-field>
-      <mat-error *ngIf="description?.invalid && (description?.dirty || description?.touched)"> Description is mandatory </mat-error>
+      <mat-error
+        *ngIf="
+          createSenderForm.get(field.key)?.invalid && (createSenderForm.get(field.key)?.dirty || createSenderForm.get(field.key)?.touched)
+        "
+      >
+        {{ field.label }} is mandatory
+      </mat-error>
     </div>
 
     <!-- Country -->
@@ -41,7 +64,7 @@
       <label for="serviceType">Service Type</label>
       <mat-form-field appearance="outline">
         <mat-label>Choose Service Type</mat-label>
-        <mat-select id="serviceType" formControlName="serviceType" placeholder="ServiceTy">
+        <mat-select id="serviceType" formControlName="serviceType">
           @for (servType of serviceTypes; track servType) {
             <mat-option [value]="servType?.name">{{ servType?.name }}</mat-option>
           }
@@ -50,16 +73,7 @@
       <mat-error *ngIf="serviceType?.invalid && (serviceType?.dirty || serviceType?.touched)"> Service Type is mandatory </mat-error>
     </div>
 
-    <!-- Entity ID -->
-    <div class="form-row">
-      <label for="entityId">Entity ID</label>
-      <mat-form-field appearance="outline">
-        <input matInput id="entityId" formControlName="entityId" placeholder="Enter Entity ID" />
-      </mat-form-field>
-      <mat-error *ngIf="entityId?.invalid && (entityId?.dirty || entityId?.touched)"> Entity ID is mandatory </mat-error>
-    </div>
-
-    <!-- Is Open -->
+    <!-- Open Flag -->
     <div class="form-row">
       <label for="openFlag">Is Open</label>
       <mat-form-field appearance="outline">
@@ -78,16 +92,28 @@
       <label for="statusFlag">Status</label>
       <mat-slide-toggle id="statusFlag" formControlName="statusFlag">Active</mat-slide-toggle>
     </div>
+
+    <!-- Submit Button -->
     <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="createSenderForm.invalid"> Update Sender </button>
+      <button mat-raised-button color="primary" type="submit" [disabled]="createSenderForm.invalid">
+        <mat-icon class="material-icon-left">save</mat-icon>
+        Update Sender
+      </button>
     </div>
   </form>
-  <div *ngIf="message">
-    {{ message }}
-  </div>
+
+  <!-- Success Message -->
+  <div *ngIf="message" class="success-message"> <mat-icon>check_circle</mat-icon> {{ message }} </div>
 </mat-dialog-content>
-<mat-dialog-actions align="end">
-  <button mat-button mat-dialog-close>Cancel</button>
-  <!-- <button mat-raised-button color="primary" type="submit" (click)="createSender()" [disabled]="createSenderForm.invalid" style="margin-left: 0.5rem;" [mat-dialog-close]="true" cdkFocusInitial> Create Sender </button> -->
-  <button mat-button [mat-dialog-close]="true" cdkFocusInitial>Sender List</button>
+
+<!-- Dialog Footer -->
+<mat-dialog-actions align="end" class="dialog-footer">
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon class="material-icon-left">close</mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="accent" [mat-dialog-close]="true">
+    <mat-icon class="material-icon-left">list</mat-icon>
+    Sender List
+  </button>
 </mat-dialog-actions>

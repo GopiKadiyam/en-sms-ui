@@ -33,7 +33,27 @@ export class SenderListComponent implements OnInit {
       autoHeight: true,
       suppressSizeToFit: true
     },
-    { headerName: 'Country', field: 'country', sortable: true, filter: true, autoHeight: true },
+    {
+      headerName: 'Country',
+      field: 'country',
+      sortable: true,
+      filter: true,
+      cellRenderer: (params: any) => {
+        const country = params.value;
+        let imgUrl = '';
+        let label = '';
+
+        if (country === 'IN') {
+          imgUrl = 'https://flagcdn.com/w40/in.png';
+          label = 'IN';
+        } else if (country === 'INTL') {
+          imgUrl = 'https://img.icons8.com/emoji/48/globe-showing-asia-australia-emoji.png';
+          label = 'INTL';
+        }
+
+        return `<span class="country-flag"><img src="${imgUrl}" class="flag-img" alt="${label}" />${label}</span>`;
+      }
+    },
     { headerName: 'Sender ID', field: 'senderId', sortable: true, filter: true },
     { headerName: 'Description', field: 'description', sortable: true, filter: true },
     { headerName: 'Service', field: 'serviceType', sortable: true, filter: true },
@@ -44,11 +64,7 @@ export class SenderListComponent implements OnInit {
       field: 'statusFlag',
       cellRenderer: (params: any) => {
         const isActive = !!params.value;
-        return `
-      <span class="status-chip ${isActive ? 'active' : 'inactive'} !important">
-        ${isActive ? 'Active' : 'Inactive'}
-      </span>
-    `;
+        return `<span class="status-chip ${isActive ? 'active' : 'inactive'} !important">${isActive ? 'Active' : 'Inactive'}</span>`;
       }
     },
   ];

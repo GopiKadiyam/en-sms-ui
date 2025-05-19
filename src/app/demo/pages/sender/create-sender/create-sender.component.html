@@ -1,9 +1,10 @@
-<mat-card class="form-card" *ngIf="successData === null">
+<mat-card class="form-card" *ngIf="!successData">
   <div id="sender-form">
     <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="createSender()" (keyup.enter)="createSender()">
       <!-- Error Message -->
       <div *ngIf="errorMessage" class="error-message">
-        {{ errorMessage }}
+        <mat-icon class="error-icon">error_outline</mat-icon>
+        <span class="error-text">{{ errorMessage }}</span>
       </div>
 
       <!-- Sender ID -->
@@ -91,7 +92,10 @@
 
 <!-- Success Card -->
 <mat-card *ngIf="successData" class="success-card">
-  <mat-card-title>Sender Created Successfully</mat-card-title>
+  <mat-card-title>
+    <mat-icon style="color: #2e7d32; vertical-align: middle">check_circle</mat-icon>
+    &nbsp; Sender Created Successfully
+  </mat-card-title>
   <mat-card-content>
     <p><strong>Sender ID:</strong> {{ successData?.senderId }}</p>
     <p><strong>Description:</strong> {{ successData?.description }}</p>

@@ -210,6 +210,23 @@
   }
 }
 
+::ng-deep .country-flag {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333;
+
+  .flag-img {
+    width: 24px;
+    height: 16px;
+    border-radius: 2px;
+    object-fit: cover;
+    box-shadow: 0 0 2px rgba(0, 0, 0, 0.2);
+  }
+}
+
 @media (max-width: 768px) {
   .ag-theme-custom {
     font-size: 12px;

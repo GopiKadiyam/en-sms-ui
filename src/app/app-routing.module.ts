@@ -30,6 +30,11 @@ const routes: Routes = [
           .then(m => m.TemplateModule)
       },
       {
+        path: 'user',
+        loadChildren: () => import('./demo/pages/user/user.module')
+          .then(m => m.UserModule)
+      },
+      {
         path: 'component',
         loadChildren: () => import('./demo/pages/components/component.module').then((m) => m.ComponentModule)
       },

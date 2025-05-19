@@ -17,6 +17,13 @@ const senderURLs = {
     getSender: "/sender/{senderId}",
     getSenderList: "/sender/all",
 }
+const userURLs={
+    createUser: "/user",
+    updateUser: "/user/{id}",
+    deleteUser: "/user/{id}",
+    getUser: "/user/{id}",
+    getUserList: "/user/all",
+}
 const commonUrls = {
     getServiceTypes: '/service-types'
 }
@@ -36,5 +43,6 @@ export const API_URL = {
     senderURLs,
     templateURLs,
     campaignURLs,
-    commonUrls
+    commonUrls,
+    userURLs
 }

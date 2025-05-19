@@ -24,7 +24,7 @@ export class BaseUrlInterceptorService  implements HttpInterceptor{
   }
 
   private isUrlMatch(targetPath: string): boolean {
-    const paths = [...Object.values(API_URL.authURLs),...Object.values(API_URL.senderURLs),...Object.values(API_URL.templateURLs), ...Object.values(API_URL.commonUrls)];
+    const paths = [...Object.values(API_URL.authURLs),...Object.values(API_URL.senderURLs),...Object.values(API_URL.templateURLs), ...Object.values(API_URL.commonUrls),...Object.values(API_URL.userURLs)];
     for (const path of paths) {
       // 1. Check for exact match (no placeholders)
       if (path === targetPath) {

@@ -34,7 +34,6 @@ export class CreateSenderComponent implements OnInit {
   successData: any;
   errorMessage!: string;
   createSenderForm = new FormGroup({
-    id: new FormControl(''),
     senderId: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
     country: new FormControl('', [Validators.required]),

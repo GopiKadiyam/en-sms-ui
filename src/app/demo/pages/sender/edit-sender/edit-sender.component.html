@@ -2,7 +2,7 @@
 
 <!-- Dialog Content -->
 <mat-dialog-content class="mat-typography">
-  <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="createSender()" *ngIf="!message">
+  <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="updateSender()" *ngIf="!message">
     <div *ngIf="errorMessage" class="error-message">
       {{ errorMessage }}
     </div>

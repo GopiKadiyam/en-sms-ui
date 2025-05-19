@@ -79,10 +79,10 @@ export class EditSenderComponent {
       });
   }
 
-  createSender() {
-    const senderId=this.createSenderForm?.value?.senderId;
+  updateSender() {
+    const senderId: string = this.createSenderForm.value.senderId as string;
     if (this.createSenderForm?.valid) {
-      this.http.post<any>(API_URL.senderURLs.createSender, this.createSenderForm.value, { headers: { "username": "gopi1782" } })
+      this.http.put<any>(API_URL.senderURLs.updateSender.replace('{senderId}', senderId), this.createSenderForm.value, { headers: { "username": "gopi1782" } })
         .pipe(
           catchError(err => {
             this.errorMessage = err?.message || 'Failed to create sender.';
@@ -93,7 +93,7 @@ export class EditSenderComponent {
         )
         .subscribe((response) => {
           // this.successData = response;
-          this.message = 'senderId : '+senderId+" updated successfully";
+          this.message = 'senderId : ' + response?.senderId + " updated successfully";
         });
     }
   }

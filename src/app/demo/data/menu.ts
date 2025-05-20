@@ -52,8 +52,8 @@ export const menus: Navigation[] = [
             url: '/user/create'
           },
           {
-            id: 'create-apiKey',
-            title: 'Create APi Key',
+            id: 'user-apiKey',
+            title: 'User API Keys',
             type: 'item',
             url: '/user/api-key'
           }

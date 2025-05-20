@@ -15,10 +15,15 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
 import { UserApiKeyComponent } from './user-api-key/user-api-key.component';
+import { CreateUserApiKeyComponent } from './create-user-api-key/create-user-api-key.component';
+import { UpdateUserApiKeyComponent } from './update-user-api-key/update-user-api-key.component';
+import { ViewUserApiKeyComponent } from './view-user-api-key/view-user-api-key.component';
+import { DeleteUserApiKeyComponent } from './delete-user-api-key/delete-user-api-key.component';
+import { UserApiKeyActionRendererComponent } from './user-api-key-action-renderer/user-api-key-action-renderer.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 @NgModule({
-  declarations: [UserComponent, UserListComponent, CreateUserComponent, ActionRendererComponent, DeleteUserComponent, EditUserComponent, UserApiKeyComponent],
+  declarations: [UserComponent, UserListComponent, CreateUserComponent, ActionRendererComponent, DeleteUserComponent, EditUserComponent, UserApiKeyComponent, CreateUserApiKeyComponent, UpdateUserApiKeyComponent, ViewUserApiKeyComponent, DeleteUserApiKeyComponent, UserApiKeyActionRendererComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

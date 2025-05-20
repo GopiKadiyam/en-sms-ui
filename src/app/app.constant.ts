@@ -24,7 +24,12 @@ const userURLs={
     getUser: "/user/{id}",
     getUserList: "/user/all",
     checkUsername:"/user/check-username/{username}",
-    verifyPassword:"/user/verify-password"
+    verifyPassword:"/user/verify-password",
+    createApiKey: "/user/{id}/api-key",
+	getApiKey: "/user/{id}/api-key",
+	getAllApiKeys:  "/user/all/api-key",
+	updateApiKey: "/user/{id}/api-key/{keyId}",
+	deleteApiKey:"/user/{id}/api-key/{keyId}"
 }
 const commonUrls = {
     getServiceTypes: '/service-types'

@@ -3,6 +3,7 @@ import { RouterModule, Routes } from "@angular/router";
 import { UserComponent } from "./user.component";
 import { UserListComponent } from "./user-list/user-list.component";
 import { CreateUserComponent } from "./create-user/create-user.component";
+import { UserApiKeyComponent } from "./user-api-key/user-api-key.component";
 
 const routes: Routes = [
   {
@@ -16,7 +17,11 @@ const routes: Routes = [
       {
         path:'create',
         component: CreateUserComponent
-      }
+      },
+      {
+        path:'api-key',
+        component: UserApiKeyComponent
+      },
     ]
   }
 ];

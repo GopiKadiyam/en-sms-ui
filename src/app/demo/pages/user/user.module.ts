@@ -14,10 +14,11 @@ import { EditUserComponent } from './edit-user/edit-user.component';
 
 
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+import { UserApiKeyComponent } from './user-api-key/user-api-key.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 @NgModule({
-  declarations: [UserComponent, UserListComponent, CreateUserComponent, ActionRendererComponent, DeleteUserComponent, EditUserComponent],
+  declarations: [UserComponent, UserListComponent, CreateUserComponent, ActionRendererComponent, DeleteUserComponent, EditUserComponent, UserApiKeyComponent],
   imports: [
     CommonModule,
     UserRoutingModule,

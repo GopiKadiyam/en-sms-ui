@@ -1,1 +1,128 @@
-<p>edit-user works!</p>
+<h2 class="dialog-title" mat-dialog-title><mat-icon class="title-icon">edit</mat-icon> Edit User</h2>
+
+<!-- Dialog Content -->
+<mat-dialog-content class="mat-typography">
+  <form class="form-container" [formGroup]="updateUserForm" (ngSubmit)="updateUser()" *ngIf="!message">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+    <div class="form-row">
+      <label for="id">User ID</label>
+      <mat-form-field appearance="outline">
+        <input matInput id="id" formControlName="id" placeholder="User ID" style="font-weight: bolder" />
+      </mat-form-field>
+    </div>
+
+    <!-- Username -->
+    <div class="form-row">
+      <label for="username">Username</label>
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          id="username"
+          formControlName="username"
+          style="font-weight: bolder"
+          placeholder="Enter Username"
+          (blur)="checkUsernameExists()"
+        />
+      </mat-form-field>
+      <mat-error *ngIf="username?.hasError('required') && (username?.dirty || username?.touched)">Username is required</mat-error>
+      <mat-error *ngIf="username?.hasError('usernameTaken') && (username?.dirty || username?.touched)">Username already exists</mat-error>
+    </div>
+
+    <div class="form-row">
+      <label for="name">Name</label>
+      <mat-form-field appearance="outline">
+        <input matInput id="name" formControlName="name" placeholder="Enter Name" />
+      </mat-form-field>
+      <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)"> name is mandatory</mat-error>
+    </div>
+
+    <div class="form-row">
+      <label for="activeFlag">Active</label>
+      <mat-slide-toggle id="activeFlag" formControlName="activeFlag">User is Active</mat-slide-toggle>
+    </div>
+
+    <div class="form-row">
+      <label>Change Password</label>
+      <mat-slide-toggle formControlName="changePassword" (change)="onToggleChangePassword()">Enable Password Change</mat-slide-toggle>
+    </div>
+
+    <div class="form-row" *ngIf="changePassword?.value == true">
+      <label for="currentPassword">Current Password</label>
+      <mat-form-field appearance="outline">
+        <input
+          matInput
+          type="password"
+          id="currentPassword"
+          formControlName="currentPassword"
+          name="currentPassword"
+          placeholder="Enter Current Password"
+          (blur)="verifyCurrentPassword()"
+        />
+      </mat-form-field>
+      <mat-error *ngIf="currentPassword?.value && currentPasswordError && (currentPassword?.dirty || currentPassword?.touched)">{{
+        currentPasswordError
+      }}</mat-error>
+    </div>
+
+    <div class="form-row" *ngIf="allowNewPassword">
+      <label for="password">New Password</label>
+      <mat-form-field appearance="outline">
+        <input matInput type="password" id="newPassword" formControlName="newPassword" placeholder="Enter New Password" />
+      </mat-form-field>
+      <mat-error *ngIf="newPassword?.hasError('required') && (newPassword?.dirty || newPassword?.touched)">
+        Please enter a password.
+      </mat-error>
+      <mat-error *ngIf="newPassword?.hasError('weakPassword') && (newPassword?.dirty || newPassword?.touched)">
+        <div class="password-checklist">
+          <p>Password must include:</p>
+          <ul>
+            <li [class.valid]="passwordStatus.length">✔ At least 12 characters</li>
+            <li [class.valid]="passwordStatus.upper">✔ One uppercase letter</li>
+            <li [class.valid]="passwordStatus.lower">✔ One lowercase letter</li>
+            <li [class.valid]="passwordStatus.number">✔ One number</li>
+            <li [class.valid]="passwordStatus.special">✔ One special character (!#&*)</li>
+          </ul>
+        </div>
+      </mat-error>
+    </div>
+
+    <div class="form-row" *ngIf="allowNewPassword">
+      <label for="confirmPassword">Confirm Password</label>
+      <mat-form-field appearance="outline">
+        <input matInput type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" />
+      </mat-form-field>
+      <mat-error *ngIf="confirmPassword?.hasError('required') && (confirmPassword?.dirty || confirmPassword?.touched)">
+        Please confirm your password.
+      </mat-error>
+      <mat-error *ngIf="updateUserForm?.errors?.['passwordMismatch'] && (confirmPassword?.dirty || confirmPassword?.touched)">
+        Passwords do not match. Please make sure both fields match exactly.
+      </mat-error>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="!validForm()">
+        <mat-icon class="material-icon-left">save</mat-icon>
+        Update User
+      </button>
+    </div>
+  </form>
+
+  <!-- Success Message -->
+  <div *ngIf="message" class="success-message"> <mat-icon>check_circle</mat-icon> {{ message }} </div>
+</mat-dialog-content>
+
+<!-- Dialog Footer -->
+<mat-dialog-actions align="end" class="dialog-footer">
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon class="material-icon-left">close</mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="accent" [mat-dialog-close]="true">
+    <mat-icon class="material-icon-left">list</mat-icon>
+    User List
+  </button>
+</mat-dialog-actions>

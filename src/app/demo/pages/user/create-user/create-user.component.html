@@ -1,1 +1,85 @@
-<p>create-user works!</p>
+<mat-card class="form-card" *ngIf="!successData">
+  <div id="create-user-form">
+    <form class="form-container" [formGroup]="createUserForm" (ngSubmit)="createUser()" (keyup.enter)="createUser()">
+      <!-- Error Message -->
+      <div *ngIf="errorMessage" class="error-message">
+        <mat-icon class="error-icon">error_outline</mat-icon>
+        <span class="error-text">{{ errorMessage }}</span>
+      </div>
+
+      <div class="form-row">
+        <label for="name">Name</label>
+        <mat-form-field appearance="outline">
+          <input matInput id="name" formControlName="name" placeholder="Enter Name" />
+        </mat-form-field>
+        <mat-error *ngIf="name?.invalid && (name?.dirty || name?.touched)"> name is mandatory</mat-error>
+      </div>
+
+      <!-- Username -->
+      <div class="form-row">
+        <label for="username">Username</label>
+        <mat-form-field appearance="outline">
+          <input matInput id="username" formControlName="username" placeholder="Enter Username" (blur)="checkUsernameExists()" />
+        </mat-form-field>
+        <mat-error *ngIf="username?.hasError('required') && (username?.dirty || username?.touched)">Username is required</mat-error>
+        <mat-error *ngIf="username?.hasError('usernameTaken') && (username?.dirty || username?.touched)">Username already exists</mat-error>
+      </div>
+
+      <!-- Password -->
+      <div class="form-row">
+        <label for="password">Password</label>
+        <mat-form-field appearance="outline">
+          <input matInput type="password" id="password" formControlName="password" placeholder="Enter Password" />
+        </mat-form-field>
+
+        <mat-error *ngIf="password?.hasError('required') && (password?.dirty || password?.touched)"> Please enter a password. </mat-error>
+        <mat-error *ngIf="password?.hasError('weakPassword') && (password?.dirty || password?.touched)">
+          <div class="password-checklist">
+            <p>Password must include:</p>
+            <ul>
+              <li [class.valid]="passwordStatus.length">✔ At least 12 characters</li>
+              <li [class.valid]="passwordStatus.upper">✔ One uppercase letter</li>
+              <li [class.valid]="passwordStatus.lower">✔ One lowercase letter</li>
+              <li [class.valid]="passwordStatus.number">✔ One number</li>
+              <li [class.valid]="passwordStatus.special">✔ One special character (!#&*)</li>
+            </ul>
+          </div>
+        </mat-error>
+      </div>
+
+      <!-- Confirm Password -->
+      <div class="form-row">
+        <label for="confirmPassword">Confirm Password</label>
+        <mat-form-field appearance="outline">
+          <input matInput type="password" id="confirmPassword" formControlName="confirmPassword" placeholder="Confirm Password" />
+        </mat-form-field>
+
+        <mat-error *ngIf="confirmPassword?.hasError('required') && (confirmPassword?.dirty || confirmPassword?.touched)">
+          Please confirm your password.
+        </mat-error>
+
+        <mat-error *ngIf="createUserForm?.errors?.['passwordMismatch'] && (confirmPassword?.dirty || confirmPassword?.touched)">
+          Passwords do not match. Please make sure both fields match exactly.
+        </mat-error>
+      </div>
+
+      <!-- Submit -->
+      <div class="form-actions">
+        <button mat-raised-button color="primary" type="submit" [disabled]="createUserForm.invalid"> Create User </button>
+      </div>
+    </form>
+  </div>
+</mat-card>
+
+<!-- Success Card -->
+<mat-card *ngIf="successData" class="success-card">
+  <mat-card-title>
+    <mat-icon style="color: #2e7d32; vertical-align: middle">check_circle</mat-icon>
+    &nbsp; User Created Successfully
+  </mat-card-title>
+  <mat-card-content>
+    <p><strong>ID:</strong> {{ successData?.id }}</p>
+    <p><strong>Name:</strong> {{ successData?.name }}</p>
+    <p><strong>Username:</strong> {{ successData?.username }}</p>
+  </mat-card-content>
+</mat-card>

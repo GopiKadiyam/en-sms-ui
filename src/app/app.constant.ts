@@ -23,6 +23,8 @@ const userURLs={
     deleteUser: "/user/{id}",
     getUser: "/user/{id}",
     getUserList: "/user/all",
+    checkUsername:"/user/check-username/{username}",
+    verifyPassword:"/user/verify-password"
 }
 const commonUrls = {
     getServiceTypes: '/service-types'

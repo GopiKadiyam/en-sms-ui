@@ -1,23 +1,12 @@
 <mat-card class="form-card">
   <div class="header-bar">
-    <div class="sender-info">
-      <p>
-        A Sender ID represents the name or number shown to recipients when they receive your SMS. As per TRAI regulations, messages from
-        applications to individuals (A2P SMS) must be sent using a Sender ID rather than a mobile number.
-      </p>
-      <p> This ID is used especially for transactional messages and defines your brand or service identity to your users. </p>
-      <p><strong>Sender ID formats:</strong></p>
-      <ul>
-        <li> <strong>Promotional SMS:</strong> Uses a 6-digit numeric Sender ID provided by the operator. Example: <code>777777</code> </li>
-        <li>
-          <strong>Transactional SMS:</strong> Requires an alphabetic ID, typically 5 to 6 characters long. Example: <code>NOTIFY</code>
-        </li>
-      </ul>
+    <div class="user-info">
+     
     </div>
   </div>
 
   <div class="header-bar search-bar">
-    <mat-form-field appearance="outline" class="sender-search">
+    <mat-form-field appearance="outline" class="user-search">
       <mat-label>Search table</mat-label>
       <input matInput type="text" [(ngModel)]="userGlobalSearch" (ngModelChange)="onGlobalSearchChange()" placeholder="Search..." />
       <button *ngIf="userGlobalSearch" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
@@ -41,7 +30,7 @@
       <div class="create-btn">
         <button mat-raised-button color="primary" [routerLink]="['./create']">
           <mat-icon class="material-icon-left">add</mat-icon>
-          Create Sender
+          Create User
         </button>
       </div>
     </div>

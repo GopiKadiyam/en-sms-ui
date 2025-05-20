@@ -1,0 +1,183 @@
+.dialog-title {
+  background-color: #3f51b5;
+  color: white;
+  padding: 16px 24px;
+  font-size: 20px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .title-icon {
+    font-size: 24px;
+  }
+}
+
+.form-container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding-top: 1rem;
+  //max-width: 800px;
+  width: 100%;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+
+  label {
+    flex: 0 0 180px;
+    font-weight: 500;
+    color: #333;
+  }
+
+  mat-form-field,
+  mat-slide-toggle {
+    flex: 1;
+    min-width: 200px;
+  }
+
+  mat-error {
+    margin-left: 180px;
+    color: #f44336;
+    font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+
+    label {
+      margin-bottom: 0.25rem;
+    }
+
+    mat-error {
+      margin-left: 0;
+    }
+  }
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-end;
+
+  button {
+    min-width: 160px;
+
+    .material-icon-left {
+      margin-right: 6px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    justify-content: center;
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+.dialog-footer {
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #e0e0e0;
+  display: flex;
+  gap: 1rem;
+
+  button {
+    min-width: 130px;
+
+    .material-icon-left {
+      margin-right: 6px;
+    }
+  }
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}
+
+.error-message {
+  color: #f44336;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  background-color: #fdecea;
+  border-left: 4px solid #d32f2f;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: #2e7d32;
+  font-weight: 600;
+  background-color: #e8f5e9;
+  padding: 1rem;
+  border-left: 4px solid #43a047;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.error-message {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background-color: #fdecea;
+  color: #d32f2f;
+  padding: 0.75rem 1rem;
+  border-left: 4px solid #c62828;
+  border-radius: 4px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  margin-bottom: 1rem;
+
+  .error-icon {
+    font-size: 20px;
+    color: #c62828;
+  }
+
+  .error-text {
+    flex: 1;
+  }
+}
+::ng-deep .password-error-list {
+  padding-left: 1.25rem;
+  margin: 0.5rem 0;
+  font-size: 0.85rem;
+
+  li {
+    list-style: disc;
+    margin-bottom: 4px;
+    color: #d32f2f;
+  }
+}
+
+.password-checklist {
+  font-size: 0.85rem;
+  color: #d32f2f;
+
+  ul {
+    padding-left: 1.25rem;
+    margin: 0.5rem 0;
+
+    li {
+      list-style: none;
+      margin-bottom: 4px;
+
+      &::before {
+        content: '✖ ';
+        color: #d32f2f;
+      }
+
+      &.valid {
+        color: #2e7d32;
+
+        &::before {
+          content: '✔ ';
+          color: #2e7d32;
+        }
+      }
+    }
+  }
+}

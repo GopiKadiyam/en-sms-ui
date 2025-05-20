@@ -33,6 +33,33 @@ export const menus: Navigation[] = [
     icon: 'icon-navigation',
     children: [
       {
+        id: 'users',
+        title: 'Users',
+        type: 'collapse',
+        icon: '#custom-status-up',
+        classes: 'edge',
+        children: [
+          {
+            id: 'user-list',
+            title: 'User List',
+            type: 'item',
+            url: '/user'
+          },
+          {
+            id: 'create-user',
+            title: 'Create User',
+            type: 'item',
+            url: '/user/create'
+          },
+          {
+            id: 'create-apiKey',
+            title: 'Create APi Key',
+            type: 'item',
+            url: '/user/api-key'
+          }
+        ]
+      },
+      {
         id: 'senders',
         title: 'Senders',
         type: 'collapse',

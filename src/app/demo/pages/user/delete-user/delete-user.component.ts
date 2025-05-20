@@ -4,6 +4,7 @@ import { DeleteSenderComponent } from '../../sender/delete-sender/delete-sender.
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { API_URL } from 'src/app/app.constant';
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-delete-user',
@@ -29,7 +30,7 @@ export class DeleteUserComponent {
       .pipe(
         catchError(err => {
           this.message = err?.message || 'Failed to delete user : ' + userId;
-          return err;
+          return of(err);
         })
       )
       .subscribe(response => {

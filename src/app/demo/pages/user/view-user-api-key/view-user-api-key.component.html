@@ -3,58 +3,54 @@
 </h2>
 
 <mat-dialog-content class="mat-typography">
-  <mat-card *ngIf="userApiKeyRes" class="api-key-card">
-    <mat-card-content>
-      <div class="info-row">
-        <mat-icon class="info-icon">person</mat-icon>
-        <strong>Name:</strong> {{ userApiKeyRes.name }}
-      </div>
-
-      <div class="info-row">
-        <mat-icon class="info-icon">account_circle</mat-icon>
-        <strong>Username:</strong> {{ userApiKeyRes.username }}
-      </div>
-
-      <div class="info-row">
-        <mat-icon class="info-icon">vpn_key</mat-icon>
-        <strong>API Key Title:</strong> {{ userApiKeyRes.apiKeyTitle }}
-      </div>
-
-      <div class="info-row">
-        <mat-icon class="info-icon">key</mat-icon>
-        <strong>API Key:</strong>
-        <span class="api-key-text">{{ userApiKeyRes.apiKey }}</span>
-        <button mat-icon-button (click)="copyToClipboard(userApiKeyRes.apiKey)" matTooltip="Copy to clipboard">
-          <mat-icon color="primary">content_copy</mat-icon>
+  <div class="api-key-card">
+    <div class="field-row">
+      <mat-icon>person</mat-icon>
+      <span class="label">Name:</span>
+      <span class="value">{{ userApiKeyRes?.name }}</span>
+    </div>
+    <div class="field-row">
+      <mat-icon>account_circle</mat-icon>
+      <span class="label">Username:</span>
+      <span class="value">{{ userApiKeyRes?.username }}</span>
+    </div>
+    <div class="field-row">
+      <mat-icon>vpn_key</mat-icon>
+      <span class="label">API Key Title:</span>
+      <span class="value">{{ userApiKeyRes?.apiKeyTitle }}</span>
+    </div>
+    <div class="field-row">
+      <mat-icon>key</mat-icon>
+      <span class="label">API Key:</span>
+      <span class="value key">
+        {{ userApiKeyRes?.apiKey }}
+        <button mat-icon-button (click)="copyApiKey()" class="copy-btn" matTooltip="Copy API Key">
+          <mat-icon>content_copy</mat-icon>
         </button>
-      </div>
-
-      <div class="info-row">
-        <mat-icon class="info-icon">event</mat-icon>
-        <strong>Validity:</strong> {{ userApiKeyRes.validity }}
-      </div>
-
-      <div class="info-row">
-        <mat-icon class="info-icon">calendar_today</mat-icon>
-        <strong>Expires On:</strong> {{ userApiKeyRes.expiresOn }}
-      </div>
-
-      <div class="info-row">
-        <mat-icon class="info-icon">toggle_on</mat-icon>
-        <strong>Status:</strong>
-        <span
-          class="status-chip"
-          [ngClass]="{ 'active': userApiKeyRes.activeFlag, 'inactive': !userApiKeyRes.activeFlag }">
-          {{ userApiKeyRes.activeFlag ? 'Active' : 'Inactive' }}
+      </span>
+    </div>
+    <div class="field-row">
+      <mat-icon>event</mat-icon>
+      <span class="label">Validity:</span>
+      <span class="value">{{ userApiKeyRes?.validity }}</span>
+    </div>
+    <div class="field-row">
+      <mat-icon>calendar_today</mat-icon>
+      <span class="label">Expires On:</span>
+      <span class="value">{{ userApiKeyRes?.expiresOn }}</span>
+    </div>
+    <div class="field-row">
+      <mat-icon>toggle_on</mat-icon>
+      <span class="label">Status:</span>
+      <span class="value">
+        <span class="status-chip" [ngClass]="userApiKeyRes?.activeFlag ? 'active' : 'inactive'">
+          {{ userApiKeyRes?.activeFlag ? 'Active' : 'Inactive' }}
         </span>
-      </div>
-    </mat-card-content>
-  </mat-card>
-
-  <div *ngIf="message" class="error-message">
-    <mat-icon>error</mat-icon> {{ message }}
+      </span>
+    </div>
   </div>
 </mat-dialog-content>
+
 
 <mat-dialog-actions align="end" class="dialog-footer">
   <button mat-stroked-button mat-dialog-close>

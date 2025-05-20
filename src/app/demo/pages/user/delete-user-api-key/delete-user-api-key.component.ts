@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
 
@@ -31,7 +32,7 @@ export class DeleteUserApiKeyComponent {
       .pipe(
         catchError(err => {
           this.message = err?.message || 'Failed to delete api key : ' + userId;
-          return err;
+          return of(err);
         })
       )
       .subscribe(response => {

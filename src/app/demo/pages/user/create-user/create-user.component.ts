@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
+import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
 
@@ -113,7 +114,7 @@ export class CreateUserComponent {
             this.errorMessage = err?.message || 'Failed to create sender.';
             this.successData = null;
             //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return err;
+            return of(err);
           })
         )
         .subscribe((response) => {

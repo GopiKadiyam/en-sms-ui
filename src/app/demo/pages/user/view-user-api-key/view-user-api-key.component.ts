@@ -56,6 +56,13 @@ export class ViewUserApiKeyComponent implements OnInit {
     navigator.clipboard.writeText(value);
   }
 
+  copyApiKey() {
+    navigator.clipboard.writeText(this.userApiKeyRes?.apiKey || '').then(() => {
+      console.log('API Key copied!');
+    });
+  }
+
+
 
 
 }

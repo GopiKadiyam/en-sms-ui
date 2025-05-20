@@ -1,6 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { of } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
 import { COUNTRY } from 'src/app/demo/shared/sender.interface';
@@ -97,7 +98,7 @@ export class CreateSenderComponent implements OnInit {
             this.errorMessage = err?.message || 'Failed to create sender.';
             this.successData = null;
             //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return err;
+            return of(err);
           })
         )
         .subscribe((response) => {

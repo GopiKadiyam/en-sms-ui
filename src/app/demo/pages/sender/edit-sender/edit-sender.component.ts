@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { API_URL } from 'src/app/app.constant';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-edit-sender',
@@ -88,7 +89,7 @@ export class EditSenderComponent {
             this.errorMessage = err?.message || 'Failed to create sender.';
             // this.successData = null;
             //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return err;
+            return of(err);
           })
         )
         .subscribe((response) => {

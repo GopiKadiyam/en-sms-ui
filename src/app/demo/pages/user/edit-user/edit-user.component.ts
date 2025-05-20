@@ -5,6 +5,7 @@ import { EditSenderComponent } from '../../sender/edit-sender/edit-sender.compon
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { API_URL } from 'src/app/app.constant';
 import { catchError } from 'rxjs/internal/operators/catchError';
+import { of } from 'rxjs/internal/observable/of';
 
 @Component({
   selector: 'app-edit-user',
@@ -134,7 +135,7 @@ export class EditUserComponent {
           this.currentPasswordError = 'Failed to validate current password.';
           this.allowNewPassword = false;
           //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-          return err;
+          return of(err);
         })
       ).subscribe(valid => {
         if (valid) {
@@ -160,7 +161,7 @@ export class EditUserComponent {
           catchError(err => {
             this.errorMessage = err?.message || 'Failed to create sender.';
             //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return err;
+            return of(err);
           })
         )
         .subscribe(exists => {
@@ -202,7 +203,7 @@ export class EditUserComponent {
     ).pipe(
       catchError(err => {
         this.errorMessage = err?.message || 'Failed to update user.';
-        return err;
+        return of(err);
       })
     ).subscribe(response => {
       this.message = `User ${response.username} updated successfully`;

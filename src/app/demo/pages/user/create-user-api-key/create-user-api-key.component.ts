@@ -2,6 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { FormBuilder, FormControl, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
+import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
 export interface IUserInfo {
@@ -69,7 +70,7 @@ export class CreateUserApiKeyComponent {
             this.errorMessage = err?.message || 'Failed to create API KEY.';
             // this.successData = null;
             //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return err;
+            return of(err);
           })
         )
         .subscribe((response) => {

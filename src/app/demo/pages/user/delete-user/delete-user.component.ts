@@ -8,12 +8,12 @@ import { catchError } from 'rxjs/internal/operators/catchError';
 @Component({
   selector: 'app-delete-user',
   standalone: false,
-  
+
   templateUrl: './delete-user.component.html',
   styleUrl: './delete-user.component.scss'
 })
 export class DeleteUserComponent {
-public rowData: any;
+  public rowData: any;
   public message: any;
 
   constructor(

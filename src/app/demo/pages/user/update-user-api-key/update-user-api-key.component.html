@@ -1,1 +1,89 @@
-<p>update-user-api-key works!</p>
+<h2 class="dialog-title" mat-dialog-title><mat-icon class="title-icon">edit</mat-icon> Edit Sender</h2>
+
+<!-- Dialog Content -->
+<mat-dialog-content class="mat-typography">
+  <form class="form-container" [formGroup]="updateUserApiKeyForm" (ngSubmit)="updateUserApiKey()" *ngIf="!message">
+    <div *ngIf="errorMessage" class="error-message">
+      {{ errorMessage }}
+    </div>
+
+     <!-- <div class="form-row">
+      <label for="username">Username</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Choose User</mat-label>
+        <mat-select id="username" formControlName="username">
+          @for (user of users; track user) {
+            <mat-option [value]="user.id">{{ user.username }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="username?.invalid && (username?.dirty || username?.touched)"> username is mandatory </mat-error>
+    </div> -->
+
+    <div class="form-row">
+      <label for="username">Username</label>
+      <mat-form-field appearance="outline">
+        <input matInput id="username" formControlName="username" placeholder="Enter Username" style="font-weight: bolder;" />
+      </mat-form-field>
+      <mat-error *ngIf="username?.invalid && (username?.dirty || username?.touched)"> Username is mandatory</mat-error>
+    </div>
+
+    <div class="form-row">
+      <label for="apiKeyTitle">API KEY Title</label>
+      <mat-form-field appearance="outline">
+        <input matInput id="apiKeyTitle" formControlName="apiKeyTitle" placeholder="Enter API KEY Title" style="font-weight: bolder;" />
+      </mat-form-field>
+      <mat-error *ngIf="apiKeyTitle?.invalid && (apiKeyTitle?.dirty || apiKeyTitle?.touched)"> API KEY Title is mandatory</mat-error>
+    </div>
+
+    <div class="form-row">
+      <label for="validity">Validity</label>
+      <mat-form-field appearance="outline">
+        <mat-label>Choose Validity</mat-label>
+        <mat-select id="validity" formControlName="validity">
+          @for (val of validities; track val) {
+            <mat-option [value]="val">{{ val }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-error *ngIf="validity?.invalid && (validity?.dirty || validity?.touched)"> Validity is mandatory </mat-error>
+    </div>
+
+     <div class="form-row">
+      <label for="expiresOn">Token Expiry Date</label>
+      <mat-form-field appearance="outline">
+        <input matInput id="expiresOn" formControlName="expiresOn" placeholder="" style="font-weight: bolder;" />
+      </mat-form-field>
+      <!-- <mat-error *ngIf="expiryOn?.invalid && (expiryOn?.dirty || expiryOn?.touched)"> Expir is mandatory</mat-error> -->
+    </div>
+
+     <!-- Status -->
+    <div class="form-row">
+      <label for="activeFlag">Status</label>
+      <mat-slide-toggle id="activeFlag" formControlName="activeFlag">Active</mat-slide-toggle>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="updateUserApiKeyForm.invalid">
+        <mat-icon class="material-icon-left">save</mat-icon>
+        Update User API KEY
+      </button>
+    </div>
+  </form>
+
+  <!-- Success Message -->
+  <div *ngIf="message" class="success-message"> <mat-icon>check_circle</mat-icon> {{ message }} </div>
+</mat-dialog-content>
+
+<!-- Dialog Footer -->
+<mat-dialog-actions align="end" class="dialog-footer">
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon class="material-icon-left">close</mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="accent" [mat-dialog-close]="true">
+    <mat-icon class="material-icon-left">list</mat-icon>
+    User API Key List
+  </button>
+</mat-dialog-actions>

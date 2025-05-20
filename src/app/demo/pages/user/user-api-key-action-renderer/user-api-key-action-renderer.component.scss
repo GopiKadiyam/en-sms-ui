@@ -1,12 +1,12 @@
 .action-buttons {
   display: flex;
-  gap: 8px;
+  gap: 1px;
   justify-content: center;
   align-items: center;
 
   button {
-    width: 36px;
-    height: 36px;
+    width: 30px;
+    height: 30px;
     padding: 0;
     mat-icon {
       font-size: 20px;

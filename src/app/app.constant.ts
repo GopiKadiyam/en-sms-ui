@@ -26,7 +26,7 @@ const userURLs={
     checkUsername:"/user/check-username/{username}",
     verifyPassword:"/user/verify-password",
     createApiKey: "/user/{id}/api-key",
-	getApiKey: "/user/{id}/api-key",
+	getApiKey: "/user/{id}/api-key/{keyId}",
 	getAllApiKeys:  "/user/all/api-key",
 	updateApiKey: "/user/{id}/api-key/{keyId}",
 	deleteApiKey:"/user/{id}/api-key/{keyId}"

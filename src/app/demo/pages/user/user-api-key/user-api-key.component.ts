@@ -109,6 +109,20 @@ export class UserApiKeyComponent implements OnInit {
     );
   }
 
+  onCreateClicked(rowData: any) {
+    const dialogRef = this.dialog.open(CreateUserApiKeyComponent, {
+      data: rowData,
+      width: '50vw', // or '80vw' for responsive width
+      maxWidth: '90vw', // ensures dialog doesn't overflow
+      autoFocus: false // optional to prevent auto scroll to input
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`View result: ${result}`);
+      if (result === true)
+        this.getAllUserApiKeys();
+    });
+  }
+
   onViewClicked(rowData: any) {
     const dialogRef = this.dialog.open(ViewUserApiKeyComponent, {
       data: rowData,

@@ -1,1 +1,68 @@
-<p>view-user-api-key works!</p>
+<h2 class="dialog-title" mat-dialog-title>
+  <mat-icon class="title-icon">visibility</mat-icon> View User API Key
+</h2>
+
+<mat-dialog-content class="mat-typography">
+  <mat-card *ngIf="userApiKeyRes" class="api-key-card">
+    <mat-card-content>
+      <div class="info-row">
+        <mat-icon class="info-icon">person</mat-icon>
+        <strong>Name:</strong> {{ userApiKeyRes.name }}
+      </div>
+
+      <div class="info-row">
+        <mat-icon class="info-icon">account_circle</mat-icon>
+        <strong>Username:</strong> {{ userApiKeyRes.username }}
+      </div>
+
+      <div class="info-row">
+        <mat-icon class="info-icon">vpn_key</mat-icon>
+        <strong>API Key Title:</strong> {{ userApiKeyRes.apiKeyTitle }}
+      </div>
+
+      <div class="info-row">
+        <mat-icon class="info-icon">key</mat-icon>
+        <strong>API Key:</strong>
+        <span class="api-key-text">{{ userApiKeyRes.apiKey }}</span>
+        <button mat-icon-button (click)="copyToClipboard(userApiKeyRes.apiKey)" matTooltip="Copy to clipboard">
+          <mat-icon color="primary">content_copy</mat-icon>
+        </button>
+      </div>
+
+      <div class="info-row">
+        <mat-icon class="info-icon">event</mat-icon>
+        <strong>Validity:</strong> {{ userApiKeyRes.validity }}
+      </div>
+
+      <div class="info-row">
+        <mat-icon class="info-icon">calendar_today</mat-icon>
+        <strong>Expires On:</strong> {{ userApiKeyRes.expiresOn }}
+      </div>
+
+      <div class="info-row">
+        <mat-icon class="info-icon">toggle_on</mat-icon>
+        <strong>Status:</strong>
+        <span
+          class="status-chip"
+          [ngClass]="{ 'active': userApiKeyRes.activeFlag, 'inactive': !userApiKeyRes.activeFlag }">
+          {{ userApiKeyRes.activeFlag ? 'Active' : 'Inactive' }}
+        </span>
+      </div>
+    </mat-card-content>
+  </mat-card>
+
+  <div *ngIf="message" class="error-message">
+    <mat-icon>error</mat-icon> {{ message }}
+  </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end" class="dialog-footer">
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon class="material-icon-left">close</mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="accent" [mat-dialog-close]="true">
+    <mat-icon class="material-icon-left">list</mat-icon>
+    User API Key List
+  </button>
+</mat-dialog-actions>

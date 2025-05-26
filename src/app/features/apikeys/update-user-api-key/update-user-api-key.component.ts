@@ -66,7 +66,7 @@ export class UpdateUserApiKeyComponent {
   updateUserApiKey() {
     const userId: string = this.updateUserApiKeyForm.value.username as string;
     const formData = this.updateUserApiKeyForm.getRawValue();
-    const urlWithId = API_URL.userURLs.updateApiKey.replace("{id}", formData.userId as string);
+    const urlWithId = API_URL.apiKeyURLs.updateApiKey.replace("{id}", formData.userId as string);
     const url = urlWithId.replace("{keyId}", formData.id as string);
 
     if (this.updateUserApiKeyForm?.valid) {

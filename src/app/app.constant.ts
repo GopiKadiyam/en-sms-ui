@@ -10,26 +10,28 @@ const authURLs = {
     signIn: "/api/auth/sign-in",
     checkAuth: "/api/auth/check-auth"
 }
+const userURLs = {
+    createUser: "/user",
+    updateUser: "/user/{id}",
+    deleteUser: "/user/{id}",
+    getUser: "/user/{id}",
+    getUserList: "/user/all",
+    checkUsername: "/user/check-username/{username}",
+    verifyPassword: "/user/verify-password",
+}
+const apiKeyURLs = {
+    createApiKey: "/user/{id}/api-key",
+    getApiKey: "/user/{id}/api-key/{keyId}",
+    getAllApiKeys: "/user/all/api-key",
+    updateApiKey: "/user/{id}/api-key/{keyId}",
+    deleteApiKey: "/user/{id}/api-key/{keyId}"
+}
 const senderURLs = {
     createSender: "/sender",
     updateSender: "/sender/{senderId}",
     deleteSender: "/sender/{senderId}",
     getSender: "/sender/{senderId}",
     getSenderList: "/sender/all",
-}
-const userURLs={
-    createUser: "/user",
-    updateUser: "/user/{id}",
-    deleteUser: "/user/{id}",
-    getUser: "/user/{id}",
-    getUserList: "/user/all",
-    checkUsername:"/user/check-username/{username}",
-    verifyPassword:"/user/verify-password",
-    createApiKey: "/user/{id}/api-key",
-	getApiKey: "/user/{id}/api-key/{keyId}",
-	getAllApiKeys:  "/user/all/api-key",
-	updateApiKey: "/user/{id}/api-key/{keyId}",
-	deleteApiKey:"/user/{id}/api-key/{keyId}"
 }
 const commonUrls = {
     getServiceTypes: '/service-types'
@@ -41,15 +43,13 @@ const templateURLs = {
     getAllTemplateIdsBySenderId: "/api/template/id/all/{senderId}",
     getAllTemplateIds: "/api/template/id/all"
 }
-const campaignURLs = {
-    createCampaign: "/api/campaign/create",
-    campaignList: "/api/campaign/all",
-}
+
 export const API_URL = {
     authURLs,
+    userURLs,
+    apiKeyURLs,
     senderURLs,
     templateURLs,
-    campaignURLs,
     commonUrls,
-    userURLs
+
 }

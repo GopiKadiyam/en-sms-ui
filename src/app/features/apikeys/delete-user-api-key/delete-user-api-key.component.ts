@@ -26,7 +26,7 @@ export class DeleteUserApiKeyComponent {
   }
   
   deleteUser(userId: string) {
-    const urlWithId = API_URL.userURLs.deleteApiKey.replace("{id}", this.rowData.userId as string);
+    const urlWithId = API_URL.apiKeyURLs.deleteApiKey.replace("{id}", this.rowData.userId as string);
     const url = urlWithId.replace("{keyId}", this.rowData.id as string);
     this.http.delete<any>(url)
       .pipe(

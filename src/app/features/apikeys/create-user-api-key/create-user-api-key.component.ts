@@ -64,7 +64,7 @@ export class CreateUserApiKeyComponent {
     const userId: string = this.createUserApiKeyForm.value.username as string;
 
     if (this.createUserApiKeyForm?.valid) {
-      this.http.post<any>(API_URL.userURLs.createApiKey.replace('{id}',userId), this.createUserApiKeyForm.value)
+      this.http.post<any>(API_URL.apiKeyURLs.createApiKey.replace('{id}',userId), this.createUserApiKeyForm.value)
         .pipe(
           catchError(err => {
             this.errorMessage = err?.message || 'Failed to create API KEY.';

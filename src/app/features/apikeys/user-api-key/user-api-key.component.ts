@@ -78,7 +78,7 @@ export class UserApiKeyComponent implements OnInit {
   }
 
   getAllUserApiKeys() {
-    this.http.get<any[]>(API_URL.userURLs.getAllApiKeys).subscribe((response) => {
+    this.http.get<any[]>(API_URL.apiKeyURLs.getAllApiKeys).subscribe((response) => {
       this.originalData = response;
       this.rowData = response;
     });

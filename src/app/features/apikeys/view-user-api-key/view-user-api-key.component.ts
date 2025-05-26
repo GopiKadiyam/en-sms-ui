@@ -38,7 +38,7 @@ export class ViewUserApiKeyComponent implements OnInit {
     this.rowData = this.data;
   }
   ngOnInit(): void {
-    const urlWithId = API_URL.userURLs.updateApiKey.replace("{id}", this.rowData.userId as string);
+    const urlWithId = API_URL.apiKeyURLs.updateApiKey.replace("{id}", this.rowData.userId as string);
     const url = urlWithId.replace("{keyId}", this.rowData.id as string);
     this.http.get<IGetUserApiKeyRes>(url)
       .pipe(

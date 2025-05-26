@@ -2,7 +2,7 @@
 import { Component } from '@angular/core';
 
 // project import
-import { SharedModule } from 'src/app/demo/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-nav-right',

@@ -3,7 +3,7 @@ import { Component, viewChild } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // project import
-import { SharedModule } from 'src/app/demo/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { ChartDB } from 'src/app/fake-data/chartDB';
 
 // third party

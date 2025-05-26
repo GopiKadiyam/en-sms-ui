@@ -6,8 +6,8 @@ import { debounceTime, Subject } from 'rxjs';
 import { API_URL } from 'src/app/app.constant';
 import { DeleteUserComponent } from '../delete-user/delete-user.component';
 import { ActionRendererComponent } from '../action-renderer/action-renderer.component';
-import { EditUserComponent } from '../edit-user/edit-user.component';
 import { CreateUserComponent } from '../create-user/create-user.component';
+import { EditUserComponent } from '../edit-user/edit-user.component';
 
 @Component({
   selector: 'app-user-list',

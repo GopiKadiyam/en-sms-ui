@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { COUNTRY } from 'src/app/demo/shared/sender.interface';
+import { COUNTRY } from 'src/app/shared/models/sender.interface';
 import { IServiceType } from '../create-sender/create-sender.component';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';

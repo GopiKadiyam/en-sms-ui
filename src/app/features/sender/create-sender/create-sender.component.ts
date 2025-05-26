@@ -4,7 +4,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { of } from 'rxjs';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
-import { COUNTRY } from 'src/app/demo/shared/sender.interface';
+import { COUNTRY } from 'src/app/shared/models/sender.interface';
 
 export interface ISenderResponse {
   id: number;

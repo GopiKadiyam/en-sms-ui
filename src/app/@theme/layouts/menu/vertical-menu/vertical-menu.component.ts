@@ -4,7 +4,7 @@ import { CommonModule, Location, LocationStrategy } from '@angular/common';
 
 // project import
 import { NavigationItem } from 'src/app/@theme/types/navigation';
-import { SharedModule } from 'src/app/demo/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 import { MenuItemComponent } from './menu-item/menu-item.component';
 import { MenuCollapseComponent } from './menu-collapse/menu-collapse.component';
 import { MenuGroupVerticalComponent } from './menu-group/menu-group.component';

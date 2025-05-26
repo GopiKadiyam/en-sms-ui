@@ -4,7 +4,7 @@ import { FormControl, Validators } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
 // project import
-import { SharedModule } from 'src/app/demo/shared/shared.module';
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @Component({
   selector: 'app-register',

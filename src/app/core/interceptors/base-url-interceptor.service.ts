@@ -2,7 +2,7 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } fr
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { API_URL, BACKEND_HOST } from '../app.constant';
+import { API_URL, BACKEND_HOST } from '../../app.constant';
 
 @Injectable()
 export class BaseUrlInterceptorService  implements HttpInterceptor{

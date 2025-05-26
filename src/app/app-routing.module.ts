@@ -21,7 +21,7 @@ const routes: Routes = [
       },
       {
         path: 'sender',
-        loadChildren: () => import('./demo/pages/sender/sender.module')
+        loadChildren: () => import('./features/sender/sender.module')
           .then(m => m.SenderModule)
       },
       {
@@ -31,8 +31,13 @@ const routes: Routes = [
       },
       {
         path: 'user',
-        loadChildren: () => import('./demo/pages/user/user.module')
+        loadChildren: () => import('./features/user/user.module')
           .then(m => m.UserModule)
+      },
+      {
+        path: 'user/api-key',
+        loadChildren: () => import('./features/apikeys/apikeys.module')
+          .then(m => m.ApikeysModule)
       },
       {
         path: 'component',

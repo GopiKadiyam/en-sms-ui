@@ -28,7 +28,7 @@
       </div>
 
       <div class="create-btn">
-        <button mat-raised-button color="primary" [routerLink]="['./create']">
+        <button mat-raised-button color="primary" (click)="onCreateClicked(null)">
           <mat-icon class="material-icon-left">add</mat-icon>
           Create User
         </button>

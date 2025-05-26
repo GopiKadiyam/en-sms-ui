@@ -7,6 +7,7 @@ import { API_URL } from 'src/app/app.constant';
 import { DeleteUserComponent } from '../delete-user/delete-user.component';
 import { ActionRendererComponent } from '../action-renderer/action-renderer.component';
 import { EditUserComponent } from '../edit-user/edit-user.component';
+import { CreateUserComponent } from '../create-user/create-user.component';
 
 @Component({
   selector: 'app-user-list',
@@ -101,6 +102,19 @@ export class UserListComponent implements OnInit{
       })
     );
   }
+  onCreateClicked(rowData: any) {
+      const dialogRef = this.dialog.open(CreateUserComponent, {
+        data: rowData,
+        width: '50vw', // or '80vw' for responsive width
+        maxWidth: '90vw', // ensures dialog doesn't overflow
+        autoFocus: false // optional to prevent auto scroll to input
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        console.log(`View result: ${result}`);
+        if (result === true)
+          this.getAllUsersApi();
+      });
+    }
 
   onEditClicked(rowData: any) {
     const dialogRef = this.dialog.open(EditUserComponent, {

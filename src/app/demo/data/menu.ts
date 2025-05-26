@@ -27,38 +27,72 @@ export const menus: Navigation[] = [
     ]
   },
   {
-    id: 'sms-features',
-    title: 'SMS Features',
-    type: 'group',
-    icon: 'icon-navigation',
+    id: 'tenants-or-users',
+    title: 'Tenants / Users',
+    type: 'collapse',
+    icon: '#custom-status-up',
+    classes: 'edge',
     children: [
       {
-        id: 'users',
-        title: 'Users',
-        type: 'collapse',
-        icon: '#custom-status-up',
-        classes: 'edge',
-        children: [
-          {
-            id: 'user-list',
-            title: 'User List',
-            type: 'item',
-            url: '/user'
-          },
-          {
-            id: 'create-user',
-            title: 'Create User',
-            type: 'item',
-            url: '/user/create'
-          },
-          {
-            id: 'user-apiKey',
-            title: 'User API Keys',
-            type: 'item',
-            url: '/user/api-key'
-          }
-        ]
+        id: 'usermangement',
+        title: 'User Management',
+        type: 'item',
+        url: '/user'
       },
+      {
+        id: 'apiKeyManagement',
+        title: 'API Key Management',
+        type: 'item',
+        url: '/user/api-key'
+      },
+      {
+        id: 'webhookRegistry',
+        title: 'Webhook Registry',
+        type: 'item',
+        url: '/user/webhook/registry'
+      },
+      {
+        id: 'userSMSCMapping',
+        title: 'User-SMSC Mapping',
+        type: 'item',
+        url: '/user/smsc-mapping'
+      }
+    ]
+  },
+  {
+    id: 'messaging-setup',
+    title: 'Messaging Setup',
+    type: 'collapse',
+    icon: '#custom-status-up',
+    classes: 'edge',
+    children: [
+      {
+        id: 'providers',
+        title: 'Providers (Global)',
+        type: 'item',
+        url: '/providers'
+      },
+      {
+        id: 'serviceTypes',
+        title: 'Service Types (Global)',
+        type: 'item',
+        url: '/service-types'
+      },
+      {
+        id: 'smscs',
+        title: 'SMSCs (Global)',
+        type: 'item',
+        url: '/smscs'
+      }
+    ]
+  },
+  {
+    id: 'messaging-entities',
+    title: 'Messaging Entities',
+    type: 'group',
+    icon: '#icon-navigation',
+    classes: 'edge',
+    children: [
       {
         id: 'senders',
         title: 'Senders',
@@ -101,16 +135,8 @@ export const menus: Navigation[] = [
           }
         ]
       },
-      {
-        id: 'sample-page',
-        title: 'Sample Page',
-        type: 'item',
-        classes: 'nav-item',
-        url: '/sample-page',
-        icon: '#custom-notification-status'
-      }
     ]
-  }
+  },
   // {
   //   id: 'manage',
   //   title: 'MANAGE',

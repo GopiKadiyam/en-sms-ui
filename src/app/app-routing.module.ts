@@ -2,8 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 
 // project import
-import { AdminComponent } from './demo/layout/admin';
-import { EmptyComponent } from './demo/layout/empty';
+import { AdminComponent } from './layout/admin';
+import { EmptyComponent } from './layout/empty';
 
 const routes: Routes = [
   {
@@ -26,7 +26,7 @@ const routes: Routes = [
       },
       {
         path: 'template',
-        loadChildren: () => import('./demo/pages/template/template.module')
+        loadChildren: () => import('./features/template/template.module')
           .then(m => m.TemplateModule)
       },
       {

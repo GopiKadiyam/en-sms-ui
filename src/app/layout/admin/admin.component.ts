@@ -9,7 +9,7 @@ import { LayoutService } from 'src/app/@theme/services/layout.service';
 import { environment } from 'src/environments/environment';
 import { FooterComponent } from 'src/app/@theme/layouts/footer/footer.component';
 import { BreadcrumbComponent } from 'src/app/@theme/layouts/breadcrumb/breadcrumb.component';
-import { SharedModule } from '../../../shared/shared.module';
+import { SharedModule } from '../../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { NavBarComponent } from 'src/app/@theme/layouts/toolbar/toolbar.component';
 import { VerticalMenuComponent } from 'src/app/@theme/layouts/menu/vertical-menu';

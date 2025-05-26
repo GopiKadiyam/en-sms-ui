@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserApiKeyComponent } from './user-api-key.component';
+import { UserApiKeyListComponent } from './user-api-key.component';
 
 describe('UserApiKeyComponent', () => {
-  let component: UserApiKeyComponent;
-  let fixture: ComponentFixture<UserApiKeyComponent>;
+  let component: UserApiKeyListComponent;
+  let fixture: ComponentFixture<UserApiKeyListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [UserApiKeyComponent]
+      declarations: [UserApiKeyListComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(UserApiKeyComponent);
+    fixture = TestBed.createComponent(UserApiKeyListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

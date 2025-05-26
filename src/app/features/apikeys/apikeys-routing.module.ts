@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApikeysComponent } from './apikeys.component';
-import { UserApiKeyComponent } from 'src/app/features/apikeys/components/user-api-key/user-api-key.component';
+import { UserApiKeyListComponent } from 'src/app/features/apikeys/components/user-api-key-list/user-api-key.component';
 
 const routes: Routes = [ {
     path:'',
@@ -9,7 +9,7 @@ const routes: Routes = [ {
     children:[
       {
         path:'',
-        component: UserApiKeyComponent
+        component: UserApiKeyListComponent
       },
     ]
   }

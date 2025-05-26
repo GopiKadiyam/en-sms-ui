@@ -13,12 +13,12 @@ import { DeleteUserApiKeyComponent } from '../delete-user-api-key/delete-user-ap
 
 
 @Component({
-  selector: 'app-user-api-key',
+  selector: 'app-user-api-key-list',
   standalone: false,
   templateUrl: './user-api-key.component.html',
   styleUrl: './user-api-key.component.scss'
 })
-export class UserApiKeyComponent implements OnInit {
+export class UserApiKeyListComponent implements OnInit {
   themes = [
     { name: 'Alpine', value: 'ag-theme-alpine' },
     { name: 'Balham', value: 'ag-theme-balham' },

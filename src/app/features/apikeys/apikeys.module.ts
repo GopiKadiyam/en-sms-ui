@@ -7,12 +7,12 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { ApikeysComponent } from './apikeys.component';
-import { UserApiKeyComponent } from './user-api-key/user-api-key.component';
-import { CreateUserApiKeyComponent } from './create-user-api-key/create-user-api-key.component';
-import { UpdateUserApiKeyComponent } from './update-user-api-key/update-user-api-key.component';
-import { ViewUserApiKeyComponent } from './view-user-api-key/view-user-api-key.component';
-import { DeleteUserApiKeyComponent } from './delete-user-api-key/delete-user-api-key.component';
-import { UserApiKeyActionRendererComponent } from './user-api-key-action-renderer/user-api-key-action-renderer.component';
+import { UserApiKeyComponent } from './components/user-api-key/user-api-key.component';
+import { UpdateUserApiKeyComponent } from './components/update-user-api-key/update-user-api-key.component';
+import { ViewUserApiKeyComponent } from './components/view-user-api-key/view-user-api-key.component';
+import { UserApiKeyActionRendererComponent } from './components/user-api-key-action-renderer/user-api-key-action-renderer.component';
+import { CreateUserApiKeyComponent } from './components/create-user-api-key/create-user-api-key.component';
+import { DeleteUserApiKeyComponent } from './components/delete-user-api-key/delete-user-api-key.component';
 
 
 @NgModule({

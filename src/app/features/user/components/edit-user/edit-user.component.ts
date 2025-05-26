@@ -5,7 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { API_URL } from 'src/app/app.constant';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs/internal/observable/of';
-import { EditSenderComponent } from 'src/app/features/sender/edit-sender/edit-sender.component';
+import { EditSenderComponent } from 'src/app/features/sender/components/edit-sender/edit-sender.component';
 
 @Component({
   selector: 'app-edit-user',

@@ -1,8 +1,8 @@
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 import { SenderComponent } from "./sender.component";
-import { SenderListComponent } from "./sender-list/sender-list.component";
-import { CreateSenderComponent } from "./create-sender/create-sender.component";
+import { SenderListComponent } from "./components/sender-list/sender-list.component";
+import { CreateSenderComponent } from "./components/create-sender/create-sender.component";
 
 const routes: Routes = [
   {

@@ -4,7 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { API_URL } from 'src/app/app.constant';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs/internal/observable/of';
-import { DeleteSenderComponent } from 'src/app/features/sender/delete-sender/delete-sender.component';
+import { DeleteSenderComponent } from 'src/app/features/sender/components/delete-sender/delete-sender.component';
 
 @Component({
   selector: 'app-delete-user',

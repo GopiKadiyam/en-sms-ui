@@ -6,14 +6,14 @@ import { SharedModule } from '../../shared/shared.module';
 import { AgGridModule } from 'ag-grid-angular';
 import { HttpClientModule } from '@angular/common/http';
 import { UserComponent } from './user.component';
-import { ActionRendererComponent } from './action-renderer/action-renderer.component';
 
 
 import { ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
-import { UserListComponent } from './user-list/user-list.component';
-import { CreateUserComponent } from './create-user/create-user.component';
-import { DeleteUserComponent } from './delete-user/delete-user.component';
-import { EditUserComponent } from './edit-user/edit-user.component';
+import { UserListComponent } from './components/user-list/user-list.component';
+import { DeleteUserComponent } from './components/delete-user/delete-user.component';
+import { EditUserComponent } from './components/edit-user/edit-user.component';
+import { CreateUserComponent } from './components/create-user/create-user.component';
+import { ActionRendererComponent } from './components/action-renderer/action-renderer.component';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 @NgModule({

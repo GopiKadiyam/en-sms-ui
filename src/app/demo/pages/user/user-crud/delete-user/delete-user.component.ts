@@ -1,10 +1,10 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
-import { DeleteSenderComponent } from '../../sender/delete-sender/delete-sender.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { API_URL } from 'src/app/app.constant';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs/internal/observable/of';
+import { DeleteSenderComponent } from '../../../sender/delete-sender/delete-sender.component';
 
 @Component({
   selector: 'app-delete-user',

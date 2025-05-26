@@ -7,23 +7,23 @@
     <div class="field-row">
       <mat-icon>person</mat-icon>
       <span class="label">Name:</span>
-      <span class="value">{{ userApiKeyRes?.name }}</span>
+      <span class="value">{{ userApiKeyRes.name }}</span>
     </div>
     <div class="field-row">
       <mat-icon>account_circle</mat-icon>
       <span class="label">Username:</span>
-      <span class="value">{{ userApiKeyRes?.username }}</span>
+      <span class="value">{{ userApiKeyRes.username }}</span>
     </div>
     <div class="field-row">
       <mat-icon>vpn_key</mat-icon>
       <span class="label">API Key Title:</span>
-      <span class="value">{{ userApiKeyRes?.apiKeyTitle }}</span>
+      <span class="value">{{ userApiKeyRes.apiKeyTitle }}</span>
     </div>
     <div class="field-row">
       <mat-icon>key</mat-icon>
       <span class="label">API Key:</span>
       <span class="value key">
-        {{ userApiKeyRes?.apiKey }}
+        {{ userApiKeyRes.apiKey }}
         <button mat-icon-button (click)="copyApiKey()" class="copy-btn" matTooltip="Copy API Key">
           <mat-icon>content_copy</mat-icon>
         </button>
@@ -32,19 +32,19 @@
     <div class="field-row">
       <mat-icon>event</mat-icon>
       <span class="label">Validity:</span>
-      <span class="value">{{ userApiKeyRes?.validity }}</span>
+      <span class="value">{{ userApiKeyRes.validity }}</span>
     </div>
     <div class="field-row">
       <mat-icon>calendar_today</mat-icon>
       <span class="label">Expires On:</span>
-      <span class="value">{{ userApiKeyRes?.expiresOn }}</span>
+      <span class="value">{{ userApiKeyRes.expiresOn }}</span>
     </div>
     <div class="field-row">
       <mat-icon>toggle_on</mat-icon>
       <span class="label">Status:</span>
       <span class="value">
-        <span class="status-chip" [ngClass]="userApiKeyRes?.activeFlag ? 'active' : 'inactive'">
-          {{ userApiKeyRes?.activeFlag ? 'Active' : 'Inactive' }}
+        <span class="status-chip" [ngClass]="userApiKeyRes.activeFlag ? 'active' : 'inactive'">
+          {{ userApiKeyRes.activeFlag ? 'Active' : 'Inactive' }}
           
         </span>
       </span>

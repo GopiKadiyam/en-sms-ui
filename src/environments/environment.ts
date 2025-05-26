@@ -7,7 +7,7 @@ import packageInfo from '../../package.json';
 export const environment = {
   appVersion: packageInfo.version,
   production: false,
-  sendSmsServiceHostname: "http://localhost:8077"
+  sendSmsServiceHostname: "http://localhost:8076"
 };
 
 /*

@@ -1,21 +1,26 @@
 import { Component, OnInit } from '@angular/core';
-import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
-import { ActionRendererComponent } from '../action-renderer/action-renderer.component';
 import { HttpClient } from '@angular/common/http';
+import { ColDef, GridApi, GridReadyEvent } from 'ag-grid-community';
 import { MatDialog } from '@angular/material/dialog';
-import { debounceTime, Subject } from 'rxjs';
 import { API_URL } from 'src/app/app.constant';
-import { EditUserComponent } from '../edit-user/edit-user.component';
-import { DeleteUserComponent } from '../delete-user/delete-user.component';
+import { Subject } from 'rxjs/internal/Subject';
+import { debounceTime } from 'rxjs/internal/operators/debounceTime';
+import { UserApiKeyActionRendererComponent } from '../user-api-key-action-renderer/user-api-key-action-renderer.component';
+import { CreateUserApiKeyComponent } from '../create-user-api-key/create-user-api-key.component';
+import { ViewUserApiKeyComponent } from '../view-user-api-key/view-user-api-key.component';
+import { UpdateUserApiKeyComponent } from '../update-user-api-key/update-user-api-key.component';
+import { DeleteUserApiKeyComponent } from '../delete-user-api-key/delete-user-api-key.component';
+
 
 @Component({
-  selector: 'app-user-list',
-  templateUrl: './user-list.component.html',
-  styleUrl: './user-list.component.scss',
-  standalone:false
+  selector: 'app-user-api-key',
+  standalone: false,
+
+  templateUrl: './user-api-key.component.html',
+  styleUrl: './user-api-key.component.scss'
 })
-export class UserListComponent implements OnInit{
- themes = [
+export class UserApiKeyComponent implements OnInit {
+  themes = [
     { name: 'Alpine', value: 'ag-theme-alpine' },
     { name: 'Balham', value: 'ag-theme-balham' },
     { name: 'Material', value: 'ag-theme-material' },
@@ -26,15 +31,15 @@ export class UserListComponent implements OnInit{
     {
       headerName: 'Actions',
       field: 'actions',
-      cellRenderer: ActionRendererComponent,
+      cellRenderer: UserApiKeyActionRendererComponent,
       width: 120, // or higher if needed
       autoHeight: true,
       suppressSizeToFit: true
     },
-    { headerName: 'User ID', field: 'id', sortable: true, filter: true },
     { headerName: 'Name', field: 'name', sortable: true, filter: true },
     { headerName: 'User Name', field: 'username', sortable: true, filter: true },
-    { headerName: 'Password', field: 'password', sortable: true, filter: true },
+    { headerName: 'API Key Title', field: 'apiKeyTitle', sortable: true, filter: true },
+    { headerName: 'Validity', field: 'validity', sortable: true, filter: true },
     {
       headerName: 'Status',
       field: 'activeFlag',
@@ -43,6 +48,7 @@ export class UserListComponent implements OnInit{
         return `<span class="status-chip ${isActive ? 'active' : 'inactive'} !important">${isActive ? 'Active' : 'Inactive'}</span>`;
       }
     },
+    { headerName: 'Expires On', field: 'expiresOn',sortable: false, filter: false }
   ];
 
   //[style]="padding: 4px 10px;border-radius: 12px;font-size: 12px;font-weight: 500;color: white;display: inline-block;text-transform: capitalize;"
@@ -57,7 +63,7 @@ export class UserListComponent implements OnInit{
 
   rowData: any[] = [];
   originalData: any[] = []; // <-- Keep original full dataset
-  userGlobalSearch = '';
+  userApiKeyGlobalSearch = '';
 
   gridApi!: GridApi;
 
@@ -69,11 +75,11 @@ export class UserListComponent implements OnInit{
     this.searchSubject.pipe(debounceTime(200)).subscribe((search) => {
       this.applyGlobalSearch(search);
     });
-    this.getAllUsersApi();
+    this.getAllUserApiKeys();
   }
 
-  getAllUsersApi() {
-    this.http.get<any[]>(API_URL.userURLs.getUserList).subscribe((response) => {
+  getAllUserApiKeys() {
+    this.http.get<any[]>(API_URL.userURLs.getAllApiKeys).subscribe((response) => {
       this.originalData = response;
       this.rowData = response;
     });
@@ -84,7 +90,7 @@ export class UserListComponent implements OnInit{
   }
 
   onGlobalSearchChange(): void {
-    this.searchSubject.next(this.userGlobalSearch);
+    this.searchSubject.next(this.userApiKeyGlobalSearch);
   }
 
   applyGlobalSearch(search: string): void {
@@ -102,8 +108,36 @@ export class UserListComponent implements OnInit{
     );
   }
 
+  onCreateClicked(rowData: any) {
+    const dialogRef = this.dialog.open(CreateUserApiKeyComponent, {
+      data: rowData,
+      width: '50vw', // or '80vw' for responsive width
+      maxWidth: '90vw', // ensures dialog doesn't overflow
+      autoFocus: false // optional to prevent auto scroll to input
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`View result: ${result}`);
+      if (result === true)
+        this.getAllUserApiKeys();
+    });
+  }
+
+  onViewClicked(rowData: any) {
+    const dialogRef = this.dialog.open(ViewUserApiKeyComponent, {
+      data: rowData,
+      width: '50vw', // or '80vw' for responsive width
+      maxWidth: '90vw', // ensures dialog doesn't overflow
+      autoFocus: false // optional to prevent auto scroll to input
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      console.log(`View result: ${result}`);
+      if (result === true)
+        this.getAllUserApiKeys();
+    });
+  }
+
   onEditClicked(rowData: any) {
-    const dialogRef = this.dialog.open(EditUserComponent, {
+    const dialogRef = this.dialog.open(UpdateUserApiKeyComponent, {
       data: rowData,
       width: '50vw', // or '80vw' for responsive width
       maxWidth: '90vw', // ensures dialog doesn't overflow
@@ -112,12 +146,12 @@ export class UserListComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Edit result: ${result}`);
       if (result === true)
-        this.getAllUsersApi();
+        this.getAllUserApiKeys();
     });
   }
 
   onDeleteClicked(rowData: any) {
-    const dialogRef = this.dialog.open(DeleteUserComponent, {
+    const dialogRef = this.dialog.open(DeleteUserApiKeyComponent, {
       data: rowData,
       width: '50vw', // Or '50vw' for responsiveness
       maxWidth: '90vw'
@@ -125,12 +159,12 @@ export class UserListComponent implements OnInit{
     dialogRef.afterClosed().subscribe(result => {
       console.log(`Delet result: ${result}`);
       if (result === true)
-        this.getAllUsersApi();
+        this.getAllUserApiKeys();
     });
   }
 
   clearSearch(): void {
-    this.userGlobalSearch = '';
+    this.userApiKeyGlobalSearch = '';
     this.rowData = [...this.originalData];
   }
 

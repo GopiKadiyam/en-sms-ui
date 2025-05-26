@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, Inject } from '@angular/core';
 import { AbstractControl, FormBuilder, FormControl, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
-import { EditSenderComponent } from '../../sender/edit-sender/edit-sender.component';
+import { EditSenderComponent } from '../../../sender/edit-sender/edit-sender.component';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { API_URL } from 'src/app/app.constant';
 import { catchError } from 'rxjs/internal/operators/catchError';

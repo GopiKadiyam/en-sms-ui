@@ -40,6 +40,11 @@ const routes: Routes = [
           .then(m => m.ApikeysModule)
       },
       {
+        path: 'providers',
+        loadChildren: () => import('./features/providers/providers.module')
+          .then(m => m.ProvidersModule)
+      },
+      {
         path: 'component',
         loadChildren: () => import('./demo/pages/components/component.module').then((m) => m.ComponentModule)
       },

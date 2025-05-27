@@ -6,6 +6,7 @@ import { API_URL } from 'src/app/app.constant';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs/internal/observable/of';
 import { EditSenderComponent } from 'src/app/features/sender/components/edit-sender/edit-sender.component';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 
 @Component({
   selector: 'app-edit-user',
@@ -156,7 +157,7 @@ export class EditUserComponent {
     const username = this.username?.value as string;
 
     if (username) {
-      this.http.get<boolean>(API_URL.userURLs.checkUsername.replace('{username}', username))
+      this.http.get<boolean>(buildUrl(API_URL.userURLs.checkUsername, { username: username }))
         .pipe(
           catchError(err => {
             this.errorMessage = err?.message || 'Failed to create sender.';
@@ -197,10 +198,7 @@ export class EditUserComponent {
     }
 
     console.log(payload)
-    this.http.put<any>(
-      API_URL.userURLs.updateUser.replace('{id}', payload.id as string),
-      payload
-    ).pipe(
+    this.http.put<any>(buildUrl(API_URL.userURLs.updateUser,{ id: payload.id as string }), payload).pipe(
       catchError(err => {
         this.errorMessage = err?.message || 'Failed to update user.';
         return of(err);
@@ -209,7 +207,5 @@ export class EditUserComponent {
       this.message = `User ${response.username} updated successfully`;
     });
   }
-
-
 
 }

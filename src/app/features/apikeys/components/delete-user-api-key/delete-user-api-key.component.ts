@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 
 @Component({
   selector: 'app-delete-user-api-key',
@@ -26,9 +27,7 @@ export class DeleteUserApiKeyComponent {
   }
   
   deleteUser(userId: string) {
-    const urlWithId = API_URL.apiKeyURLs.deleteApiKey.replace("{id}", this.rowData.userId as string);
-    const url = urlWithId.replace("{keyId}", this.rowData.id as string);
-    this.http.delete<any>(url)
+    this.http.delete<any>(buildUrl(API_URL.apiKeyURLs.deleteApiKey, { id: this.rowData.userId, keyId: this.rowData.id }))
       .pipe(
         catchError(err => {
           this.message = err?.message || 'Failed to delete api key : ' + userId;

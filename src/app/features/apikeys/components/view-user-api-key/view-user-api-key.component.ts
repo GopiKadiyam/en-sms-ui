@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 
 export interface IGetUserApiKeyRes {
   id: number;
@@ -38,9 +39,7 @@ export class ViewUserApiKeyComponent implements OnInit {
     this.rowData = this.data;
   }
   ngOnInit(): void {
-    const urlWithId = API_URL.apiKeyURLs.updateApiKey.replace("{id}", this.rowData.userId as string);
-    const url = urlWithId.replace("{keyId}", this.rowData.id as string);
-    this.http.get<IGetUserApiKeyRes>(url)
+    this.http.get<IGetUserApiKeyRes>(buildUrl(API_URL.apiKeyURLs.getApiKey, { id: this.rowData.userId, keyId: this.rowData.id }))
       .pipe(
         catchError(err => {
           this.message = err?.message || 'Failed to get user api key.';
@@ -61,8 +60,5 @@ export class ViewUserApiKeyComponent implements OnInit {
       console.log('API Key copied!');
     });
   }
-
-
-
 
 }

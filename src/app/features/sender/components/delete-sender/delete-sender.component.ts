@@ -4,6 +4,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 
 @Component({
   selector: 'app-delete-sender',
@@ -27,7 +28,7 @@ export class DeleteSenderComponent {
     //this.createSenderForm.patchValue(this.data)
   }
   deleteSender(senderId: string) {
-    this.http.delete<any>(API_URL.senderURLs.deleteSender.replace('{senderId}', senderId))
+    this.http.delete<any>(buildUrl(API_URL.senderURLs.deleteSender,{senderId:senderId}))
       .pipe(
         catchError(err => {
           this.message = err?.message || 'Failed to delete sender : ' + senderId;

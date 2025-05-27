@@ -5,6 +5,7 @@ import { API_URL } from 'src/app/app.constant';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs/internal/observable/of';
 import { DeleteSenderComponent } from 'src/app/features/sender/components/delete-sender/delete-sender.component';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 
 @Component({
   selector: 'app-delete-user',
@@ -26,7 +27,7 @@ export class DeleteUserComponent {
     this.rowData = this.data;
   }
   deleteUser(userId: string) {
-    this.http.delete<any>(API_URL.userURLs.deleteUser.replace('{id}', userId))
+    this.http.delete<any>(buildUrl(API_URL.userURLs.deleteUser, { id: userId }))
       .pipe(
         catchError(err => {
           this.message = err?.message || 'Failed to delete user : ' + userId;

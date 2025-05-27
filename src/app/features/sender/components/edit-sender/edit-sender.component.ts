@@ -7,6 +7,7 @@ import { API_URL } from 'src/app/app.constant';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { of } from 'rxjs/internal/observable/of';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 
 @Component({
   selector: 'app-edit-sender',
@@ -83,7 +84,7 @@ export class EditSenderComponent {
   updateSender() {
     const senderId: string = this.createSenderForm.value.senderId as string;
     if (this.createSenderForm?.valid) {
-      this.http.put<any>(API_URL.senderURLs.updateSender.replace('{senderId}', senderId), this.createSenderForm.value, { headers: { "username": "gopi1782" } })
+      this.http.put<any>(buildUrl(API_URL.senderURLs.updateSender, { senderId: senderId }), this.createSenderForm.value, { headers: { "username": "gopi1782" } })
         .pipe(
           catchError(err => {
             this.errorMessage = err?.message || 'Failed to create sender.';

@@ -1,0 +1,50 @@
+
+<h2 class="dialog-title" mat-dialog-title>
+  <mat-icon class="title-icon">visibility</mat-icon> Provider Details
+</h2>
+
+<mat-dialog-content class="mat-typography">
+  <div class="view-details-card" *ngIf="response!== null">
+    <div class="field-row">
+      <mat-icon>person</mat-icon>
+      <span class="label">Provider ID:</span>
+      <span class="value">{{ response.id }}</span>
+    </div>
+    <div class="field-row">
+      <mat-icon>account_circle</mat-icon>
+      <span class="label">Provider Name:</span>
+      <span class="value">{{ response.name }} 
+        <button mat-icon-button (click)="copyApiKey()" class="copy-btn" matTooltip="Copy Provider Name">
+          <mat-icon>content_copy</mat-icon>
+        </button>
+      </span>
+    </div>
+    <div class="field-row">
+      <mat-icon>vpn_key</mat-icon>
+      <span class="label">Created On</span>
+      <span class="value">{{ response.createdOn }}</span>
+    </div>
+    <div class="field-row">
+      <mat-icon>key</mat-icon>
+      <span class="label">Updated On</span>
+      <span class="value key">
+        {{ response.updatedOn }}
+      </span>
+    </div>
+  </div>
+  <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
+      <div *ngFor="let msg of errorResponse">{{ msg }}</div>
+    </div>
+</mat-dialog-content>
+
+
+<mat-dialog-actions align="end" class="dialog-footer">
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon class="material-icon-left">close</mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="accent" [mat-dialog-close]="true">
+    <mat-icon class="material-icon-left">list</mat-icon>
+    View Providers List
+  </button>
+</mat-dialog-actions>

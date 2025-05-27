@@ -1,0 +1,55 @@
+
+<mat-card class="form-card">
+  <div class="header-bar">
+    <div class="user-info">
+     
+    </div>
+  </div>
+
+  <div class="header-bar search-bar">
+    <mat-form-field appearance="outline" class="user-search">
+      <mat-label>Search table</mat-label>
+      <input matInput type="text" [(ngModel)]="providerGlobalSearch" (ngModelChange)="onGlobalSearchChange()" placeholder="Search..." />
+      <button *ngIf="providerGlobalSearch" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </mat-form-field>
+
+    <div class="theme-switcher-wrapper">
+      <div class="theme-select">
+        <mat-form-field appearance="fill">
+          <mat-label>Theme</mat-label>
+          <mat-select (selectionChange)="changeTheme($event)">
+            <mat-option *ngFor="let theme of themes" [value]="theme.value">
+              <mat-icon class="option-icon">palette</mat-icon>
+              {{ theme.name }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="create-btn">
+        <button mat-raised-button color="primary" (click)="onCreateClicked()">
+          <mat-icon class="material-icon-left">add</mat-icon>
+          Create Provider
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <div [ngClass]="currentTheme" class="ag-grid-container">
+    <ag-grid-angular
+    #agGrid
+    class="ag-theme-custom"
+      style="width: 100%; height: 500px"
+    [rowData]="rowData"
+    [columnDefs]="columnDefs"
+    [context]="context"
+    [defaultColDef]="defaultColDef"
+    rowSelection="single"
+      pagination="true"
+      [paginationPageSize]="20"
+    (gridReady)="onGridReady($event)">
+  </ag-grid-angular>
+  </div>
+</mat-card>

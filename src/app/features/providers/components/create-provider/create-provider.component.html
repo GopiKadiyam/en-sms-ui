@@ -1,0 +1,43 @@
+<h2 class="dialog-title" mat-dialog-title><mat-icon class="title-icon">add</mat-icon> Create Provider</h2>
+
+<!-- Dialog Content -->
+<mat-dialog-content class="mat-typography">
+  <form class="form-container" [formGroup]="providerForm" (ngSubmit)="createProvider()" *ngIf="response == null">
+    <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
+      <div *ngFor="let msg of errorResponse">{{ msg }}</div>
+    </div>
+
+    <div class="form-row">
+      <label for="providerName">Provider Name</label>
+      <mat-form-field appearance="outline">
+        <input matInput id="providerName" formControlName="name" placeholder="Provider Name" />
+      </mat-form-field>
+      <mat-error *ngIf="providerName?.invalid && (providerName?.dirty || providerName?.touched)"> Provider Name is mandatory</mat-error>
+    </div>
+
+    <!-- Submit Button -->
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="providerForm.invalid">
+        <mat-icon class="material-icon-left">save</mat-icon>
+        Create Provider
+      </button>
+    </div>
+  </form>
+
+  <!-- Success Message -->
+  <div *ngIf="response != null" class="success-message">
+    <mat-icon>check_circle</mat-icon> Provider created! Provider ID: <strong>{{ response.name }}</strong>
+  </div>
+</mat-dialog-content>
+
+<!-- Dialog Footer -->
+<mat-dialog-actions align="end" class="dialog-footer">
+  <button mat-stroked-button mat-dialog-close>
+    <mat-icon class="material-icon-left">close</mat-icon>
+    Cancel
+  </button>
+  <button mat-flat-button color="accent" [mat-dialog-close]="true">
+    <mat-icon class="material-icon-left">list</mat-icon>
+    User API Key List
+  </button>
+</mat-dialog-actions>

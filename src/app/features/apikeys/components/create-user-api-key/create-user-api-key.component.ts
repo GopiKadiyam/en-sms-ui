@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 export interface IUserInfo {
   id: string;
   name: string;
@@ -64,7 +65,7 @@ export class CreateUserApiKeyComponent {
     const userId: string = this.createUserApiKeyForm.value.username as string;
 
     if (this.createUserApiKeyForm?.valid) {
-      this.http.post<any>(API_URL.apiKeyURLs.createApiKey.replace('{id}',userId), this.createUserApiKeyForm.value)
+      this.http.post<any>(buildUrl(API_URL.apiKeyURLs.createApiKey,{id:userId}) +"//wg", this.createUserApiKeyForm.value)
         .pipe(
           catchError(err => {
             this.errorMessage = err?.message || 'Failed to create API KEY.';

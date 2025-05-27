@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 
 @Component({
   selector: 'app-create-user',
@@ -48,7 +49,7 @@ export class CreateUserComponent {
   senderCreationFailed = false;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder,
-     public dialogRef: MatDialogRef<CreateUserComponent>,
+    public dialogRef: MatDialogRef<CreateUserComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any) {
     console.log('Received data:', this.data);
   }
@@ -92,7 +93,7 @@ export class CreateUserComponent {
     const username = this.username?.value as string;
 
     if (username) {
-      this.http.get<boolean>(API_URL.userURLs.checkUsername.replace('{username}', username))
+      this.http.get<boolean>(buildUrl(API_URL.userURLs.checkUsername, { username: username }))
         .pipe(
           catchError(err => {
             this.errorMessage = err?.message || 'Failed to create sender.';

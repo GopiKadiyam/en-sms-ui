@@ -5,6 +5,7 @@ import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { of } from 'rxjs/internal/observable/of';
 import { catchError } from 'rxjs/internal/operators/catchError';
 import { API_URL } from 'src/app/app.constant';
+import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 
 @Component({
   selector: 'app-update-user-api-key',
@@ -66,11 +67,9 @@ export class UpdateUserApiKeyComponent {
   updateUserApiKey() {
     const userId: string = this.updateUserApiKeyForm.value.username as string;
     const formData = this.updateUserApiKeyForm.getRawValue();
-    const urlWithId = API_URL.apiKeyURLs.updateApiKey.replace("{id}", formData.userId as string);
-    const url = urlWithId.replace("{keyId}", formData.id as string);
 
     if (this.updateUserApiKeyForm?.valid) {
-      this.http.put<any>(url, this.updateUserApiKeyForm.value)
+      this.http.put<any>(buildUrl(API_URL.apiKeyURLs.updateApiKey,{ id: formData.userId as string, keyId: formData.id as string }), this.updateUserApiKeyForm.value)
         .pipe(
           catchError(err => {
             this.errorMessage = err?.message || 'Failed to create API KEY.';

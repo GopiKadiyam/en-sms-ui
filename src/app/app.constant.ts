@@ -26,6 +26,13 @@ const apiKeyURLs = {
     updateApiKey: "/user/{id}/api-key/{keyId}",
     deleteApiKey: "/user/{id}/api-key/{keyId}"
 }
+const providerURLs = {
+    createProvier: "/provider",
+    updateProvider: "/provider/{providerId}",
+    deleteProvider: "/provider/{providerId}",
+    getProvider: "/provider/{providerId}",
+    getProviderList: "/provider/all",
+}
 const senderURLs = {
     createSender: "/sender",
     updateSender: "/sender/{senderId}",
@@ -51,5 +58,5 @@ export const API_URL = {
     senderURLs,
     templateURLs,
     commonUrls,
-
+    providerURLs
 }

@@ -16,28 +16,40 @@ import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 export class DeleteSenderComponent {
 
   public rowData: any;
-  public message: any;
+  public response: any;
+  public errorResponse: any;
+  public loading = false;
 
   constructor(
     private http: HttpClient,
     public dialogRef: MatDialogRef<DeleteSenderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log('Received data:', this.data);
+    console.log('Delete Sender data:', this.data);
     this.rowData = this.data;
     //this.createSenderForm.patchValue(this.data)
   }
   deleteSender(senderId: string) {
-    this.http.delete<any>(buildUrl(API_URL.senderURLs.deleteSender,{senderId:senderId}))
+    this.http.delete<any>(buildUrl(API_URL.senderURLs.deleteSender, { senderId: senderId }))
       .pipe(
         catchError(err => {
-          this.message = err?.message || 'Failed to delete sender : ' + senderId;
-          return of(err);
-        })
-      )
-      .subscribe(response => {
-        this.message = "senderId : " + senderId + " deleted successfully";
-      })
+          // Handle multiple error keys
+          const errors = err?.error?.errors;
+          if (errors && typeof errors === 'object') {
+            // Store all error messages in an array
+            this.errorResponse = Object.values(errors);
+          } else {
+            this.errorResponse = [err?.error?.message || err?.message || 'Failed to delete Provider.'];
+          }
+          this.loading = false;
+          return of(null);
+        }))
 
+      .subscribe(res => {
+        if (res?.status) {
+          this.response = { senderId: this.rowData.senderId };
+        }
+        this.loading = false;
+      })
   }
 }

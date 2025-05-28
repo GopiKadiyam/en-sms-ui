@@ -1,29 +1,27 @@
-<h2 class="dialog-title" mat-dialog-title>
-  <mat-icon class="title-icon">visibility</mat-icon> View User API Key
-</h2>
+<h2 class="dialog-title" mat-dialog-title> <mat-icon class="title-icon">visibility</mat-icon> View User API Key </h2>
 
 <mat-dialog-content class="mat-typography">
-  <div class="api-key-card">
+  <div class="view-details-card" *ngIf="response !== null">
     <div class="field-row">
       <mat-icon>person</mat-icon>
       <span class="label">Name:</span>
-      <span class="value">{{ userApiKeyRes.name }}</span>
+      <span class="value">{{ response.name }}</span>
     </div>
     <div class="field-row">
       <mat-icon>account_circle</mat-icon>
       <span class="label">Username:</span>
-      <span class="value">{{ userApiKeyRes.username }}</span>
+      <span class="value">{{ response.username }}</span>
     </div>
     <div class="field-row">
       <mat-icon>vpn_key</mat-icon>
       <span class="label">API Key Title:</span>
-      <span class="value">{{ userApiKeyRes.apiKeyTitle }}</span>
+      <span class="value">{{ response.apiKeyTitle }}</span>
     </div>
     <div class="field-row">
       <mat-icon>key</mat-icon>
       <span class="label">API Key:</span>
       <span class="value key">
-        {{ userApiKeyRes.apiKey }}
+        {{ response.apiKey }}
         <button mat-icon-button (click)="copyApiKey()" class="copy-btn" matTooltip="Copy API Key">
           <mat-icon>content_copy</mat-icon>
         </button>
@@ -32,26 +30,27 @@
     <div class="field-row">
       <mat-icon>event</mat-icon>
       <span class="label">Validity:</span>
-      <span class="value">{{ userApiKeyRes.validity }}</span>
+      <span class="value">{{ response.validity }}</span>
     </div>
     <div class="field-row">
       <mat-icon>calendar_today</mat-icon>
       <span class="label">Expires On:</span>
-      <span class="value">{{ userApiKeyRes.expiresOn }}</span>
+      <span class="value">{{ response.expiresOn }}</span>
     </div>
     <div class="field-row">
       <mat-icon>toggle_on</mat-icon>
       <span class="label">Status:</span>
       <span class="value">
-        <span class="status-chip" [ngClass]="userApiKeyRes.activeFlag ? 'active' : 'inactive'">
-          {{ userApiKeyRes.activeFlag ? 'Active' : 'Inactive' }}
-          
+        <span class="status-chip" [ngClass]="response.activeFlag ? 'active' : 'inactive'">
+          {{ response.activeFlag ? 'Active' : 'Inactive' }}
         </span>
       </span>
     </div>
   </div>
+  <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
+    <div *ngFor="let msg of errorResponse">{{ msg }}</div>
+  </div>
 </mat-dialog-content>
-
 
 <mat-dialog-actions align="end" class="dialog-footer">
   <button mat-stroked-button mat-dialog-close>

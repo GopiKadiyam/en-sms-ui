@@ -45,6 +45,11 @@ const routes: Routes = [
           .then(m => m.ProvidersModule)
       },
       {
+        path: 'smsc',
+        loadChildren: () => import('./features/smsc/smsc.module')
+          .then(m => m.SmscModule)
+      },
+      {
         path: 'component',
         loadChildren: () => import('./demo/pages/components/component.module').then((m) => m.ComponentModule)
       },

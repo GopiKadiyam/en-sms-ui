@@ -14,8 +14,9 @@ import { buildUrl } from 'src/app/shared/utilities/api.utilities';
   standalone: false
 })
 export class CreateUserComponent {
-  successData: any;
-  errorMessage!: string;
+  response!: any;
+  errorResponse!: any;
+  usernameTakenError: string | null = null;
   createUserForm = this.formBuilder.group({
     name: new FormControl('', [Validators.required]),
     username: new FormControl('', [Validators.required]),
@@ -47,6 +48,7 @@ export class CreateUserComponent {
 
   createSenderLoading = false;
   senderCreationFailed = false;
+  loading = false;
 
   constructor(private http: HttpClient, private formBuilder: FormBuilder,
     public dialogRef: MatDialogRef<CreateUserComponent>,
@@ -89,6 +91,29 @@ export class CreateUserComponent {
       : null;
   }
 
+  // checkUsernameExists(): void {
+  //   const username = this.username?.value as string;
+
+  //   if (username) {
+  //     this.http.get<boolean>(buildUrl(API_URL.userURLs.checkUsername, { username: username }))
+  //       .pipe(
+  //         catchError(err => {
+  //           this.errorResponse = err?.message || 'Failed to create sender.';
+  //           this.response = null;
+  //           //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
+  //           return err;
+  //         })
+  //       )
+  //       .subscribe(exists => {
+  //         if (exists) {
+  //           this.username?.setErrors({ usernameTaken: true });
+  //         } else {
+  //           this.username?.setErrors({ usernameTaken: false });
+  //         }
+  //       });
+  //   }
+  // }
+
   checkUsernameExists(): void {
     const username = this.username?.value as string;
 
@@ -96,15 +121,19 @@ export class CreateUserComponent {
       this.http.get<boolean>(buildUrl(API_URL.userURLs.checkUsername, { username: username }))
         .pipe(
           catchError(err => {
-            this.errorMessage = err?.message || 'Failed to create sender.';
-            this.successData = null;
+            //this.errorMessage = err?.message || 'Failed to create sender.';
+            //this.successData = null;
             //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
+            this.usernameTakenError = 'Failed to check username.Checking username api not working . Error is :' + err?.message;
+            this.username?.setErrors({ usernameTaken: false });
+            this.loading = false;
             return err;
           })
         )
         .subscribe(exists => {
           if (exists) {
             this.username?.setErrors({ usernameTaken: true });
+            this.usernameTakenError = null; // Clear error if username is available
           }
         });
     }
@@ -117,15 +146,25 @@ export class CreateUserComponent {
       this.http.post<any>(API_URL.userURLs.createUser, createUserReq)
         .pipe(
           catchError(err => {
-            this.errorMessage = err?.message || 'Failed to create sender.';
-            this.successData = null;
-            //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return of(err);
+            // Handle multiple error keys
+            const errors = err?.error?.errors;
+            if (errors && typeof errors === 'object') {
+              // Store all error messages in an array
+              this.errorResponse = Object.values(errors);
+            } else {
+              this.errorResponse = [err?.error?.message || err?.message || 'Failed to create Provider.'];
+            }
+            this.loading = false;
+            this.response = null;
+            return of(null);
           })
         )
-        .subscribe((response) => {
-          this.successData = response;
-          this.errorMessage = '';
+        .subscribe((res) => {
+          if (res) {
+            this.response = res;
+          }
+          this.loading = false;
+          this.errorResponse = null
         });
     }
   }

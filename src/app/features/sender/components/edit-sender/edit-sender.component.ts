@@ -17,8 +17,11 @@ import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 })
 export class EditSenderComponent {
 
-  message: any;
-  errorMessage: any;
+  response: any;
+  errorResponse: any;
+  rowData: any;
+  loading: boolean = false;
+
   createSenderForm = this.fb.group({
     id: new FormControl('', [Validators.required]),
     senderId: new FormControl('', [Validators.required]),
@@ -70,8 +73,9 @@ export class EditSenderComponent {
     public dialogRef: MatDialogRef<EditSenderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log('Received data:', this.data);
-    this.createSenderForm.patchValue(this.data)
+    this.rowData = this.data;
+    console.log('Edit Sender data:', this.rowData);
+    this.createSenderForm.patchValue(this.rowData)
   }
 
   ngOnInit(): void {
@@ -87,15 +91,23 @@ export class EditSenderComponent {
       this.http.put<any>(buildUrl(API_URL.senderURLs.updateSender, { senderId: senderId }), this.createSenderForm.value, { headers: { "username": "gopi1782" } })
         .pipe(
           catchError(err => {
-            this.errorMessage = err?.message || 'Failed to create sender.';
-            // this.successData = null;
-            //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return of(err);
+            // Handle multiple error keys
+            const errors = err?.error?.errors;
+            if (errors && typeof errors === 'object') {
+              // Store all error messages in an array
+              this.errorResponse = Object.values(errors);
+            } else {
+              this.errorResponse = [err?.error?.message || err?.message || 'Failed to create Provider.'];
+            }
+            this.loading = false;
+            return of(null);
           })
         )
-        .subscribe((response) => {
-          // this.successData = response;
-          this.message = 'senderId : ' + response?.senderId + " updated successfully";
+        .subscribe((res) => {
+          if (res) {
+            this.response = res;
+          }
+          this.loading = false;
         });
     }
   }

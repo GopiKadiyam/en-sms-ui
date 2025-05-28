@@ -2,9 +2,9 @@
 
 <!-- Dialog Content -->
 <mat-dialog-content class="mat-typography">
-  <form class="form-container" [formGroup]="createUserApiKeyForm" (ngSubmit)="createUserApiKey()" *ngIf="!message">
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
+  <form class="form-container" [formGroup]="createUserApiKeyForm" (ngSubmit)="createUserApiKey()" *ngIf="!response">
+     <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
+      <div *ngFor="let msg of errorResponse">{{ msg }}</div>
     </div>
 
      <div class="form-row">
@@ -54,7 +54,8 @@
   </form>
 
   <!-- Success Message -->
-  <div *ngIf="message" class="success-message"> <mat-icon>check_circle</mat-icon> {{ message }} </div>
+  <div *ngIf="response" class="success-message"> <mat-icon>check_circle</mat-icon>
+    API KEY : {{ response?.apiKey }} created successfully for the User : {{ response?.username }} </div>
 </mat-dialog-content>
 
 <!-- Dialog Footer -->

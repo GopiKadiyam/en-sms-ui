@@ -32,8 +32,8 @@ export interface IServiceType {
   standalone: false
 })
 export class CreateSenderComponent implements OnInit {
-  successData: any;
-  errorMessage!: string;
+  response: any;
+  errorResponse!: any ;
   createSenderForm = new FormGroup({
     senderId: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
@@ -79,7 +79,7 @@ export class CreateSenderComponent implements OnInit {
   public openFlags: string[] = ['yes', 'no'];
   createSenderLoading = false;
   senderCreationFailed = false;
-
+  loading = false;
   constructor(private http: HttpClient) { }
 
   ngOnInit(): void {
@@ -95,15 +95,25 @@ export class CreateSenderComponent implements OnInit {
       this.http.post<ISenderResponse | null>(API_URL.senderURLs.createSender, this.createSenderForm.value, { headers: { "username": "gopi1782" } })
         .pipe(
           catchError(err => {
-            this.errorMessage = err?.message || 'Failed to create sender.';
-            this.successData = null;
-            //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return of(err);
+            // Handle multiple error keys
+            const errors = err?.error?.errors;
+            if (errors && typeof errors === 'object') {
+              // Store all error messages in an array
+              this.errorResponse = Object.values(errors);
+            } else {
+              this.errorResponse = [err?.error?.message || err?.message || 'Failed to create Provider.'];
+            }
+            this.response = null;
+            this.loading = false;
+            return of(null);
           })
         )
-        .subscribe((response) => {
-          this.successData = response;
-          this.errorMessage = '';
+        .subscribe((res) => {
+          if (res) {
+            this.response = res;
+          }
+          this.loading = false;
+          this.errorResponse = '';
         });
     }
   }

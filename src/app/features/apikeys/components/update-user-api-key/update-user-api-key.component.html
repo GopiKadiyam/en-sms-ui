@@ -2,15 +2,15 @@
 
 <!-- Dialog Content -->
 <mat-dialog-content class="mat-typography">
-  <form class="form-container" [formGroup]="updateUserApiKeyForm" (ngSubmit)="updateUserApiKey()" *ngIf="!message">
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
+  <form class="form-container" [formGroup]="updateUserApiKeyForm" (ngSubmit)="updateUserApiKey()" *ngIf="!response">
+    <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
+      <div *ngFor="let msg of errorResponse">{{ msg }}</div>
     </div>
-    
+
     <div class="form-row">
       <label for="username">Username</label>
       <mat-form-field appearance="outline">
-        <input matInput id="username" formControlName="username" placeholder="Enter Username" style="font-weight: bolder;" />
+        <input matInput id="username" formControlName="username" placeholder="Enter Username" style="font-weight: bolder" />
       </mat-form-field>
       <mat-error *ngIf="username?.invalid && (username?.dirty || username?.touched)"> Username is mandatory</mat-error>
     </div>
@@ -18,7 +18,7 @@
     <div class="form-row">
       <label for="apiKeyTitle">API KEY Title</label>
       <mat-form-field appearance="outline">
-        <input matInput id="apiKeyTitle" formControlName="apiKeyTitle" placeholder="Enter API KEY Title" style="font-weight: bolder;" />
+        <input matInput id="apiKeyTitle" formControlName="apiKeyTitle" placeholder="Enter API KEY Title" style="font-weight: bolder" />
       </mat-form-field>
       <mat-error *ngIf="apiKeyTitle?.invalid && (apiKeyTitle?.dirty || apiKeyTitle?.touched)"> API KEY Title is mandatory</mat-error>
     </div>
@@ -36,15 +36,15 @@
       <mat-error *ngIf="validity?.invalid && (validity?.dirty || validity?.touched)"> Validity is mandatory </mat-error>
     </div>
 
-     <div class="form-row">
+    <div class="form-row">
       <label for="expiresOn">Token Expiry Date</label>
       <mat-form-field appearance="outline">
-        <input matInput id="expiresOn" formControlName="expiresOn" placeholder="" style="font-weight: bolder;" />
+        <input matInput id="expiresOn" formControlName="expiresOn" placeholder="" style="font-weight: bolder" />
       </mat-form-field>
       <!-- <mat-error *ngIf="expiryOn?.invalid && (expiryOn?.dirty || expiryOn?.touched)"> Expir is mandatory</mat-error> -->
     </div>
 
-     <!-- Status -->
+    <!-- Status -->
     <div class="form-row">
       <label for="activeFlag">Status</label>
       <mat-slide-toggle id="activeFlag" formControlName="activeFlag">Active</mat-slide-toggle>
@@ -60,7 +60,9 @@
   </form>
 
   <!-- Success Message -->
-  <div *ngIf="message" class="success-message"> <mat-icon>check_circle</mat-icon> {{ message }} </div>
+  <div *ngIf="response" class="success-message">
+    <mat-icon>check_circle</mat-icon> {{ response?.apiKeyTitle }} API KEY updated successfully for the User : {{ response?.username }}
+  </div>
 </mat-dialog-content>
 
 <!-- Dialog Footer -->

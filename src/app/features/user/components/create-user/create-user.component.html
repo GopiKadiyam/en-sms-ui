@@ -2,11 +2,12 @@
 
 <!-- Dialog Content -->
 <mat-dialog-content class="mat-typography">
-  <form *ngIf="!successData" class="form-container" [formGroup]="createUserForm" (ngSubmit)="createUser()" (keyup.enter)="createUser()">
+  <form *ngIf="!response" class="form-container" [formGroup]="createUserForm" (ngSubmit)="createUser()" (keyup.enter)="createUser()">
     <!-- Error Message -->
-    <div *ngIf="errorMessage" class="error-message">
+
+    <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
       <mat-icon class="error-icon">error_outline</mat-icon>
-      <span class="error-text">{{ errorMessage }}</span>
+      <span *ngFor="let msg of errorResponse" class="error-text">{{ msg }}</span>
     </div>
 
     <div class="form-row">
@@ -25,6 +26,9 @@
       </mat-form-field>
       <mat-error *ngIf="username?.hasError('required') && (username?.dirty || username?.touched)">Username is required</mat-error>
       <mat-error *ngIf="username?.hasError('usernameTaken') && (username?.dirty || username?.touched)">Username already exists</mat-error>
+      <mat-error *ngIf="usernameTakenError != null && (username?.dirty || username?.touched)">
+        {{usernameTakenError}}</mat-error
+      >
     </div>
 
     <!-- Password -->
@@ -64,7 +68,6 @@
         Passwords do not match. Please make sure both fields match exactly.
       </mat-error>
     </div>
-
     <!-- Submit -->
     <div class="form-actions">
       <button mat-raised-button color="primary" type="submit" [disabled]="createUserForm.invalid"> Create User </button>
@@ -72,16 +75,16 @@
   </form>
 
   <!-- Success Message -->
-  <div *ngIf="successData" class="success-message">
+  <div *ngIf="response" class="success-message">
     <mat-card class="success-card">
       <mat-card-title>
         <mat-icon style="color: #2e7d32; vertical-align: middle">check_circle</mat-icon>
         &nbsp; User Created Successfully
       </mat-card-title>
       <mat-card-content>
-        <p><strong>ID:</strong> {{ successData?.id }}</p>
-        <p><strong>Name:</strong> {{ successData?.name }}</p>
-        <p><strong>Username:</strong> {{ successData?.username }}</p>
+        <p><strong>ID:</strong> {{ response?.id }}</p>
+        <p><strong>Name:</strong> {{ response?.name }}</p>
+        <p><strong>Username:</strong> {{ response?.username }}</p>
       </mat-card-content>
     </mat-card>
   </div>

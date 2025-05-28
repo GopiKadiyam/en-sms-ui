@@ -22,8 +22,6 @@ export class SenderListComponent implements OnInit {
     { name: 'Balham', value: 'ag-theme-balham' },
     { name: 'Material', value: 'ag-theme-material' },
   ];
-  currentTheme = 'ag-theme-alpine';
-
   columnDefs: ColDef[] = [
     {
       headerName: 'Actions',
@@ -68,9 +66,6 @@ export class SenderListComponent implements OnInit {
       }
     },
   ];
-
-  //[style]="padding: 4px 10px;border-radius: 12px;font-size: 12px;font-weight: 500;color: white;display: inline-block;text-transform: capitalize;"
-  context = { componentParent: this };
   defaultColDef = {
     sortable: true,
     filter: true,
@@ -78,10 +73,11 @@ export class SenderListComponent implements OnInit {
     floatingFilter: true,
     flex: 1,
   };
-
+  currentTheme = 'ag-theme-alpine';
+  context = { componentParent: this };
   rowData: any[] = [];
   originalData: any[] = []; // <-- Keep original full dataset
-  senderGlobalSearch = '';
+  globalSearch = '';
 
   gridApi!: GridApi;
 
@@ -108,7 +104,7 @@ export class SenderListComponent implements OnInit {
   }
 
   onGlobalSearchChange(): void {
-    this.searchSubject.next(this.senderGlobalSearch);
+    this.searchSubject.next(this.globalSearch);
   }
 
   applyGlobalSearch(search: string): void {
@@ -154,7 +150,7 @@ export class SenderListComponent implements OnInit {
   }
 
   clearSearch(): void {
-    this.senderGlobalSearch = '';
+    this.globalSearch = '';
     this.rowData = [...this.originalData];
   }
 

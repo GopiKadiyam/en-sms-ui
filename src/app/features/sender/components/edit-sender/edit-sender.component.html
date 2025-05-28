@@ -2,9 +2,9 @@
 
 <!-- Dialog Content -->
 <mat-dialog-content class="mat-typography">
-  <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="updateSender()" *ngIf="!message">
-    <div *ngIf="errorMessage" class="error-message">
-      {{ errorMessage }}
+  <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="updateSender()" *ngIf="!response">
+    <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
+      <div *ngFor="let msg of errorResponse">{{ msg }}</div>
     </div>
 
     <!-- Fields -->
@@ -103,7 +103,9 @@
   </form>
 
   <!-- Success Message -->
-  <div *ngIf="message" class="success-message"> <mat-icon>check_circle</mat-icon> {{ message }} </div>
+  <div *ngIf="response" class="success-message">
+    <mat-icon>check_circle</mat-icon> senderId : {{ response?.senderId }} updated successfully
+  </div>
 </mat-dialog-content>
 
 <!-- Dialog Footer -->

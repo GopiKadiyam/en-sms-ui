@@ -24,7 +24,6 @@ export class ProviderListComponent {
     { name: 'Balham', value: 'ag-theme-balham' },
     { name: 'Material', value: 'ag-theme-material' },
   ];
-  currentTheme = 'ag-theme-alpine';
   columnDefs: ColDef[] = [
     {
       headerName: 'Actions',
@@ -40,8 +39,6 @@ export class ProviderListComponent {
     { headerName: 'Updated At', field: 'updatedOn', sortable: true, filter: true }
 
   ];
-
-  context = { componentParent: this };
   defaultColDef = {
     sortable: true,
     filter: true,
@@ -49,10 +46,12 @@ export class ProviderListComponent {
     floatingFilter: true,
     flex: 1,
   };
+  currentTheme = 'ag-theme-alpine';
+  context = { componentParent: this };
 
   rowData: any[] = [];
   originalData: any[] = [];
-  providerGlobalSearch = '';
+  globalSearch = '';
   gridApi!: GridApi;
   private searchSubject = new Subject<string>();
   constructor(private http: HttpClient, private dialog: MatDialog) { }
@@ -77,7 +76,7 @@ export class ProviderListComponent {
   }
 
   onGlobalSearchChange(): void {
-    this.searchSubject.next(this.providerGlobalSearch);
+    this.searchSubject.next(this.globalSearch);
   }
 
   applyGlobalSearch(search: string): void {
@@ -96,7 +95,7 @@ export class ProviderListComponent {
   }
 
   clearSearch(): void {
-    this.providerGlobalSearch = '';
+    this.globalSearch = '';
     this.rowData = [...this.originalData];
   }
 
@@ -116,12 +115,12 @@ export class ProviderListComponent {
   }
 
   onViewClicked(rowData: any) {
-    const dialogRef =this.dialog.open(ViewProviderComponent, {
+    const dialogRef = this.dialog.open(ViewProviderComponent, {
       data: rowData,
       width: '50vw',
       maxWidth: '90vw'
     });
-     dialogRef.afterClosed().subscribe(result => {
+    dialogRef.afterClosed().subscribe(result => {
       console.log(`View result: ${result}`);
       if (result === true)
         this.getAllProviders();

@@ -1,10 +1,11 @@
-<mat-card class="form-card" *ngIf="!successData">
+<mat-card class="form-card" *ngIf="!response">
   <div id="sender-form">
     <form class="form-container" [formGroup]="createSenderForm" (ngSubmit)="createSender()" (keyup.enter)="createSender()">
       <!-- Error Message -->
-      <div *ngIf="errorMessage" class="error-message">
+
+      <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
         <mat-icon class="error-icon">error_outline</mat-icon>
-        <span class="error-text">{{ errorMessage }}</span>
+        <span *ngFor="let msg of errorResponse" class="error-text">{{ msg }}</span>
       </div>
 
       <!-- Sender ID -->
@@ -91,14 +92,14 @@
 </mat-card>
 
 <!-- Success Card -->
-<mat-card *ngIf="successData" class="success-card">
+<mat-card *ngIf="response" class="success-card">
   <mat-card-title>
     <mat-icon style="color: #2e7d32; vertical-align: middle">check_circle</mat-icon>
     &nbsp; Sender Created Successfully
   </mat-card-title>
   <mat-card-content>
-    <p><strong>Sender ID:</strong> {{ successData?.senderId }}</p>
-    <p><strong>Description:</strong> {{ successData?.description }}</p>
-    <p><strong>Service Type:</strong> {{ successData?.serviceType }}</p>
+    <p><strong>Sender ID:</strong> {{ response?.senderId }}</p>
+    <p><strong>Description:</strong> {{ response?.description }}</p>
+    <p><strong>Service Type:</strong> {{ response?.serviceType }}</p>
   </mat-card-content>
 </mat-card>

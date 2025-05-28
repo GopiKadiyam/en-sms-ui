@@ -16,7 +16,9 @@ import { buildUrl } from 'src/app/shared/utilities/api.utilities';
 })
 export class DeleteUserComponent {
   public rowData: any;
-  public message: any;
+  public response: any;
+  public errorResponse: any;
+  public loading = false;
 
   constructor(
     private http: HttpClient,
@@ -28,14 +30,25 @@ export class DeleteUserComponent {
   }
   deleteUser(userId: string) {
     this.http.delete<any>(buildUrl(API_URL.userURLs.deleteUser, { id: userId }))
-      .pipe(
+    .pipe(
         catchError(err => {
-          this.message = err?.message || 'Failed to delete user : ' + userId;
-          return of(err);
-        })
-      )
-      .subscribe(response => {
-        this.message = "userId : " + userId + " deleted successfully";
+          // Handle multiple error keys
+          const errors = err?.error?.errors;
+          if (errors && typeof errors === 'object') {
+            // Store all error messages in an array
+            this.errorResponse = Object.values(errors);
+          } else {
+            this.errorResponse = [err?.error?.message || err?.message || 'Failed to delete Provider.'];
+          }
+          this.loading = false;
+          return of(null);
+        }))
+
+      .subscribe(res => {
+        if (res?.status) {
+          this.response = { userId: this.rowData.id };
+        }
+        this.loading = false;
       })
 
   }

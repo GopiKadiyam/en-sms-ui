@@ -19,8 +19,8 @@
   <div class="header-bar search-bar">
     <mat-form-field appearance="outline" class="sender-search">
       <mat-label>Search table</mat-label>
-      <input matInput type="text" [(ngModel)]="senderGlobalSearch" (ngModelChange)="onGlobalSearchChange()" placeholder="Search..." />
-      <button *ngIf="senderGlobalSearch" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
+      <input matInput type="text" [(ngModel)]="globalSearch" (ngModelChange)="onGlobalSearchChange()" placeholder="Search..." />
+      <button *ngIf="globalSearch" matSuffix mat-icon-button aria-label="Clear" (click)="clearSearch()">
         <mat-icon>close</mat-icon>
       </button>
     </mat-form-field>

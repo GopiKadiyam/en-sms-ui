@@ -58,7 +58,7 @@ export class UserListComponent implements OnInit{
 
   rowData: any[] = [];
   originalData: any[] = []; // <-- Keep original full dataset
-  userGlobalSearch = '';
+  globalSearch = '';
 
   gridApi!: GridApi;
 
@@ -85,7 +85,7 @@ export class UserListComponent implements OnInit{
   }
 
   onGlobalSearchChange(): void {
-    this.searchSubject.next(this.userGlobalSearch);
+    this.searchSubject.next(this.globalSearch);
   }
 
   applyGlobalSearch(search: string): void {
@@ -144,7 +144,7 @@ export class UserListComponent implements OnInit{
   }
 
   clearSearch(): void {
-    this.userGlobalSearch = '';
+    this.globalSearch = '';
     this.rowData = [...this.originalData];
   }
 

@@ -3,8 +3,8 @@
 <mat-dialog-content class="mat-typography">
   <div *ngIf="!response">
     <p class="confirm-text">
-      Are you sure you want to delete provider : <strong>{{ providerRowData?.name }}</strong> with ID:
-      <strong>{{ providerRowData?.id }}</strong
+      Are you sure you want to delete provider : <strong>{{ rowData?.name }}</strong> with ID:
+      <strong>{{ rowData?.id }}</strong
       >?
     </p>
     <div class="action-buttons">
@@ -12,7 +12,7 @@
         <mat-icon class="material-icon-left">close</mat-icon>
         Cancel
       </button>
-      <button mat-flat-button color="warn" (click)="deleteProvider(providerRowData?.id)">
+      <button mat-flat-button color="warn" (click)="deleteProvider(rowData?.id)">
         <mat-icon class="material-icon-left">delete</mat-icon>
         Delete
       </button>
@@ -20,9 +20,10 @@
   </div>
 
   <!-- Success Message -->
-  <div *ngIf="response" class="success-message"> <mat-icon>check_circle</mat-icon> 
-    Provider : <strong>{{response.name}}</strong> deleted successfully with ID : <strong>{{response.id}}</strong>
-</div>
+  <div *ngIf="response" class="success-message">
+    <mat-icon>check_circle</mat-icon> Provider : <strong>{{ response.name }}</strong> deleted successfully with ID :
+    <strong>{{ response.id }}</strong>
+  </div>
   <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
     <div *ngFor="let msg of errorResponse">{{ msg }}</div>
   </div>

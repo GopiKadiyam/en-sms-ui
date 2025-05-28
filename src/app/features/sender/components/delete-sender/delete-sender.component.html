@@ -1,7 +1,7 @@
 <h2 class="dialog-title delete-header" mat-dialog-title> <mat-icon class="title-icon">delete</mat-icon> Delete Sender</h2>
 <!-- Dialog Content -->
 <mat-dialog-content class="mat-typography">
-  <div *ngIf="!message">
+  <div *ngIf="!response">
     <p class="confirm-text">
       Are you sure you want to delete sender ID <strong>{{ rowData?.senderId }}</strong
       >?
@@ -19,7 +19,12 @@
   </div>
 
   <!-- Success Message -->
-  <div *ngIf="message" class="success-message"> <mat-icon>check_circle</mat-icon> {{ message }} </div>
+  <div *ngIf="response" class="success-message">
+    <mat-icon>check_circle</mat-icon> senderId {{ response.senderId }} deleted successfully"
+  </div>
+  <div *ngIf="errorResponse != null && errorResponse.length" class="error-message">
+    <div *ngFor="let msg of errorResponse">{{ msg }}</div>
+  </div>
 </mat-dialog-content>
 
 <!-- Footer -->

@@ -15,7 +15,7 @@ import { pipe } from 'rxjs';
 })
 export class DeleteProviderComponent {
 
-  public providerRowData: any;
+  public rowData: any;
   public response: any;
   public errorResponse: any;
   public loading = false;
@@ -26,7 +26,7 @@ export class DeleteProviderComponent {
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     console.log('Delete Provider :', this.data);
-    this.providerRowData = this.data;
+    this.rowData = this.data;
   }
 
   deleteProvider(providerId: string) {
@@ -44,9 +44,10 @@ export class DeleteProviderComponent {
           this.loading = false;
           return of(null);
         }))
+
       .subscribe(res => {
         if (res?.status) {
-          this.response = { name: this.providerRowData.name, id: this.providerRowData.id };
+          this.response = { name: this.rowData.name, id: this.rowData.id };
         }
         this.loading = false;
       })

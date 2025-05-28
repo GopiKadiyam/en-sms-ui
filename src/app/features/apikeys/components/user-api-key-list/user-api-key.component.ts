@@ -20,13 +20,9 @@ import { buildUrl } from 'src/app/shared/utilities/api.utilities';
   styleUrl: './user-api-key.component.scss'
 })
 export class UserApiKeyListComponent implements OnInit {
-  themes = [
-    { name: 'Alpine', value: 'ag-theme-alpine' },
-    { name: 'Balham', value: 'ag-theme-balham' },
-    { name: 'Material', value: 'ag-theme-material' },
-  ];
-  currentTheme = 'ag-theme-alpine';
 
+  currentTheme = 'ag-theme-alpine';
+  context = { componentParent: this };
   columnDefs: ColDef[] = [
     {
       headerName: 'Actions',
@@ -48,11 +44,8 @@ export class UserApiKeyListComponent implements OnInit {
         return `<span class="status-chip ${isActive ? 'active' : 'inactive'} !important">${isActive ? 'Active' : 'Inactive'}</span>`;
       }
     },
-    { headerName: 'Expires On', field: 'expiresOn',sortable: false, filter: false }
+    { headerName: 'Expires On', field: 'expiresOn', sortable: false, filter: false }
   ];
-
-  //[style]="padding: 4px 10px;border-radius: 12px;font-size: 12px;font-weight: 500;color: white;display: inline-block;text-transform: capitalize;"
-  context = { componentParent: this };
   defaultColDef = {
     sortable: true,
     filter: true,
@@ -60,10 +53,15 @@ export class UserApiKeyListComponent implements OnInit {
     floatingFilter: true,
     flex: 1,
   };
+  themes = [
+    { name: 'Alpine', value: 'ag-theme-alpine' },
+    { name: 'Balham', value: 'ag-theme-balham' },
+    { name: 'Material', value: 'ag-theme-material' },
+  ];
 
   rowData: any[] = [];
   originalData: any[] = []; // <-- Keep original full dataset
-  userApiKeyGlobalSearch = '';
+  globalSearch = '';
 
   gridApi!: GridApi;
 
@@ -90,7 +88,7 @@ export class UserApiKeyListComponent implements OnInit {
   }
 
   onGlobalSearchChange(): void {
-    this.searchSubject.next(this.userApiKeyGlobalSearch);
+    this.searchSubject.next(this.globalSearch);
   }
 
   applyGlobalSearch(search: string): void {
@@ -164,7 +162,7 @@ export class UserApiKeyListComponent implements OnInit {
   }
 
   clearSearch(): void {
-    this.userApiKeyGlobalSearch = '';
+    this.globalSearch = '';
     this.rowData = [...this.originalData];
   }
 

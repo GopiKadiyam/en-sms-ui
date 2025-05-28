@@ -15,8 +15,11 @@ import { buildUrl } from 'src/app/shared/utilities/api.utilities';
   styleUrl: './update-user-api-key.component.scss'
 })
 export class UpdateUserApiKeyComponent {
-  message: any;
-  errorMessage: any;
+  response: any;
+  errorResponse: any;
+  rowData: any;
+  loading: boolean = false;
+
   updateUserApiKeyForm = this.fb.group({
     id: new FormControl({ value: '', disabled: true }, [Validators.required]),
     userId: new FormControl({ value: '', disabled: true }, [Validators.required]),
@@ -53,8 +56,9 @@ export class UpdateUserApiKeyComponent {
     public dialogRef: MatDialogRef<UpdateUserApiKeyComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
-    console.log('Received data:', this.data);
-    this.updateUserApiKeyForm.patchValue(this.data)
+    this.rowData = this.data;
+    console.log('Update user api key data:', this.rowData);
+    this.updateUserApiKeyForm.patchValue(this.rowData)
   }
 
   ngOnInit(): void {
@@ -70,18 +74,26 @@ export class UpdateUserApiKeyComponent {
 
     if (this.updateUserApiKeyForm?.valid) {
       this.http.put<any>(buildUrl(API_URL.apiKeyURLs.updateApiKey,{ id: formData.userId as string, keyId: formData.id as string }), this.updateUserApiKeyForm.value)
-        .pipe(
-          catchError(err => {
-            this.errorMessage = err?.message || 'Failed to create API KEY.';
-            // this.successData = null;
-            //this.toaster.showCustomToastAndIcon("danger", "Sender Creation Failed", err?.message, "")
-            return of(err);
-          })
-        )
-        .subscribe((response) => {
-          // this.successData = response;
-          this.message = response?.apiKeyTitle + " API KEY updated successfully for the User :" + response?.username;
-        });
+           .pipe(
+        catchError(err => {
+          // Handle multiple error keys
+          const errors = err?.error?.errors;
+          if (errors && typeof errors === 'object') {
+            // Store all error messages in an array
+            this.errorResponse = Object.values(errors);
+          } else {
+            this.errorResponse = [err?.error?.message || err?.message || 'Failed to create Provider.'];
+          }
+          this.loading = false;
+          return of(null);
+        })
+      )
+      .subscribe((res) => {
+        if (res) {
+          this.response = res;
+        }
+        this.loading = false;
+      });
     }
   }
 }

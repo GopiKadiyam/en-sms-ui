@@ -26,10 +26,12 @@ export interface IGetUserApiKeyRes {
   styleUrl: './view-user-api-key.component.scss'
 })
 export class ViewUserApiKeyComponent implements OnInit {
-  public rowData: any;
-  public message: any;
+  rowData: any;
+  message: any;
+  errorResponse: any = null;
+  response!: IGetUserApiKeyRes;
+  loading = false;
 
-  public userApiKeyRes!: IGetUserApiKeyRes;
   constructor(
     private http: HttpClient,
     public dialogRef: MatDialogRef<ViewUserApiKeyComponent>,
@@ -42,13 +44,25 @@ export class ViewUserApiKeyComponent implements OnInit {
     this.http.get<IGetUserApiKeyRes>(buildUrl(API_URL.apiKeyURLs.getApiKey, { id: this.rowData.userId, keyId: this.rowData.id }))
       .pipe(
         catchError(err => {
-          this.message = err?.message || 'Failed to get user api key.';
-          return of(err);
+          // Handle multiple error keys
+          const errors = err?.error?.errors;
+          if (errors && typeof errors === 'object') {
+            // Store all error messages in an array
+            this.errorResponse = Object.values(errors);
+          } else {
+            this.errorResponse = [err?.error?.message || err?.message || 'Failed to get Provider details '];
+          }
+          this.loading = false;
+          return of(null);
         })
       )
-      .subscribe(response => {
-        this.userApiKeyRes = response;
+      .subscribe((res) => {
+        if (res) {
+          this.response = res;
+        }
+        this.loading = false;
       });
+
   }
 
   copyToClipboard(value: string): void {
@@ -56,7 +70,7 @@ export class ViewUserApiKeyComponent implements OnInit {
   }
 
   copyApiKey() {
-    navigator.clipboard.writeText(this.userApiKeyRes?.apiKey || '').then(() => {
+    navigator.clipboard.writeText(this.response?.apiKey || '').then(() => {
       console.log('API Key copied!');
     });
   }

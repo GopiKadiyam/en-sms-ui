@@ -17,6 +17,8 @@ import { of } from 'rxjs/internal/observable/of';
 export class UpdateProviderComponent {
   response: IProviderResponse | null = null;
   errorResponse: any;
+  rowData: any;
+  loader: boolean = false;
 
   updatepPoviderForm = this.fb.group({
     id: [{ value: '', disabled: true }],
@@ -45,9 +47,10 @@ export class UpdateProviderComponent {
     private http: HttpClient,
     private dialogRef: MatDialogRef<UpdateProviderComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any
-  ) { 
-    console.log('Update Provider :', this.data);
-    this.updatepPoviderForm.patchValue(this.data)
+  ) {
+    this.rowData = this.data;
+    console.log('Update Provider :', this.rowData);
+    this.updatepPoviderForm.patchValue(this.rowData)
   }
 
   updateProvider() {
@@ -75,17 +78,6 @@ export class UpdateProviderComponent {
         }
         this.loading = false;
       });
-
-    // .subscribe({
-    //   next: () => {
-    //     this.loading = false;
-    //     this.dialogRef.close(true);
-    //   },
-    //   error: () => {
-    //     this.error = 'Failed to update provider';
-    //     this.loading = false;
-    //   }
-    // });
   }
 
   close() {

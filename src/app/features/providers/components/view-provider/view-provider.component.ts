@@ -28,6 +28,7 @@ export class ViewProviderComponent {
     console.log('View Provider :', this.rowData);
   }
 
+  
   ngOnInit(): void {
     this.http.get<IProviderResponse>(buildUrl(API_URL.providerURLs.getProvider, { providerId: this.rowData.id }))
       .pipe(
